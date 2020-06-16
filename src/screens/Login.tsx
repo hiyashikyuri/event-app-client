@@ -2,7 +2,7 @@ import React from 'react';
 import { withNavigation } from 'react-navigation';
 import axios from 'axios';
 
-import { View, Button, ActivityIndicator, Text, TextInput, StyleSheet } from 'react-native';
+import { View, Button, ActivityIndicator, Text, TextInput, StyleSheet, AsyncStorage } from 'react-native';
 
 export default class Login extends React.Component {
     
@@ -18,6 +18,12 @@ export default class Login extends React.Component {
         };
     }
     
+    async componentDidMount() {
+        if (await AsyncStorage.getItem('access_token')) {
+            this.props.navigation.navigate('main');
+        }
+    }
+    
     onSubmit() {
         this.setState({ loading: true });
         return (
@@ -26,7 +32,10 @@ export default class Login extends React.Component {
                 password: this.state.password
             }).then(response => {
                 this.setState({ loading: false });
-                if (response.headers['access-token']) {
+                const token = response.headers['access-token'];
+                if (token) {
+                    AsyncStorage.setItem('access_token', token);
+                    
                     this.setState({ failed: false });
                     this.props.navigation.navigate('main');
                     
@@ -34,7 +43,7 @@ export default class Login extends React.Component {
                     this.setState({ failed: true });
                 }
             }).catch(data => {
-                this.setState({ loading: false })
+                this.setState({ loading: false });
             })
         );
     }
