@@ -19,7 +19,7 @@ export default class Login extends React.Component {
     }
     
     async componentDidMount() {
-        if (await AsyncStorage.getItem('access_token')) {
+        if (await AsyncStorage.getItem('accessToken')) {
             this.props.navigation.navigate('main');
         }
     }
@@ -33,8 +33,12 @@ export default class Login extends React.Component {
             }).then(response => {
                 this.setState({ loading: false });
                 const token = response.headers['access-token'];
-                if (token) {
-                    AsyncStorage.setItem('access_token', token);
+                const client = response.headers['client'];
+                const uid = response.headers['uid'];
+                if (token && client && uid) {
+                    AsyncStorage.setItem('accessToken', token);
+                    AsyncStorage.setItem('client', client);
+                    AsyncStorage.setItem('uid', uid);
                     
                     this.setState({ failed: false });
                     this.props.navigation.navigate('main');
