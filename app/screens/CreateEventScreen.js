@@ -16,6 +16,7 @@ import { Header } from 'react-navigation-stack';
 import axios from "axios";
 
 import { addEvent, updateEvent } from "../redux/actions/actions";
+import { apiPath } from "../config";
 
 
 const MAX_LENGTH = 250;
@@ -38,12 +39,11 @@ export default function CreateEventScreen(props) {
         let event_ = {};
 
         //OPTION 2 - FAKE API
-        let url = 'http://localhost:3001/events/';
         if (edit) {
             event_ = event;
             event_['title'] = title;
             event_['body'] = body;
-            axios.put(url + id.toString(), event_)
+            axios.put(`${apiPath}events/${id}`, event_)
                 .then(res => res.data)
                 .then((data) => {
                     dispatch(updateEvent(data));
@@ -52,7 +52,7 @@ export default function CreateEventScreen(props) {
                 .catch(error => alert(error.message))
         } else {
             event_ = { "id": id, "title": title, "body": body };
-            axios.post(url, event_)
+            axios.post(`${apiPath}events/`, event_)
                 .then(res => res.data)
                 .then((data) => {
                     dispatch(addEvent(data));

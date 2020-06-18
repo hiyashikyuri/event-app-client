@@ -6,15 +6,12 @@ import {
     View,
     Text,
     ActivityIndicator,
-    TouchableHighlight,
-    AsyncStorage
+    TouchableHighlight
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-
 import axios from 'axios';
-
+import { apiPath } from '../config';
 import { addEvents, deleteEvent } from "../redux/actions/actions";
-
 import ListItem from "../components/ListItem";
 
 export default function HomeScreen(props) {
@@ -39,8 +36,7 @@ export default function HomeScreen(props) {
     const getData = () => {
         setIsFetching(true);
         //OPTION 2 - FAKE API
-        let url = "http://localhost:3001/events/";
-        axios.get(url)
+        axios.get(`${apiPath}events`)
             .then(res => res.data)
             .then((data) => dispatch(addEvents(data)))
             .catch(error => alert(error.message))
@@ -77,9 +73,7 @@ export default function HomeScreen(props) {
 
     //6 - DELETE QUOTE
     const onDelete = (id) => {
-        //OPTION 2 - FAKE API
-        let url = "http://localhost:3001/events/" + id;
-        axios.delete(url, { data: { id: id } })
+        axios.delete(`${apiPath}events/${id}`, { data: { id: id } })
             // TODO, reducerを入れる
             .then((res) => dispatch(deleteEvent(id)))
             .catch(error => alert(error.message))
@@ -100,10 +94,8 @@ export default function HomeScreen(props) {
             <SafeAreaView style={ styles.container }>
                 <FlatList
                     data={ events }
-
                     renderItem={ renderItem }
                     keyExtractor={ (item, index) => `events_${ index }` }/>
-
                 <TouchableHighlight
                     style={ styles.floatingButton }
                     underlayColor='#ff7043'

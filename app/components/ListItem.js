@@ -58,7 +58,6 @@ export default function ListItem({ item, index, navigation, onDetail, onDelete, 
                 <RightActions progress={ progress } dragX={ dragX } item={ item }/>
             ) }>
             <View style={ styles.row }>
-                <Text>ada</Text>
                 <TouchableOpacity
                     style={ [styles.container, { backgroundColor: random() }] }
                     onPress={ () => { onDetail(item) } }>
