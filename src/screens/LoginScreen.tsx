@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import { View, Button, ActivityIndicator, Text, TextInput, StyleSheet, AsyncStorage } from 'react-native';
 
-export default class Login extends React.Component {
+export default class LoginScreen extends React.Component {
     
     url = 'http://localhost:3001/';
     

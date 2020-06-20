@@ -8,6 +8,11 @@ export default function LoadingScreen(props) {
     useEffect(() => checkLocalData(), []);
 
     function checkLocalData(){
+        // ここでチェック
+        // TODO, AsyncStorageのaccessToken, client. uidを取得
+        // TODO, あればvalidateにかけてなければサインイン画面へ
+        // TODO, OKならHome, ダメならサインインへ
+
         //Check if LocalStorage has been populated with the sample data
         // AsyncStorage.getItem('quotes', (err, data) => {
         //     //if it doesn't exist, extract from json fil
@@ -19,7 +24,10 @@ export default function LoadingScreen(props) {
         //         props.navigation.navigate('App'); //Navigate to the home page
         //     }
         // });
-        props.navigation.navigate('App');
+        props.navigation.navigate('Login'); //Navigate to the home page
+        console.log(props)
+        // props.navigation.navigate('App');
+        console.log('Loading 入った');
     }
 
     return <AppLoading/>;
