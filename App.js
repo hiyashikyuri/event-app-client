@@ -9,29 +9,25 @@ import { View, Text, ScrollView, StyleSheet, SafeAreaView } from 'react-native';
 export default class App extends Component {
     render() {
         return (
-
             <Provider store={ store }>
-                {/*<View></View>*/ }
-                <Router/>
-                {/*<View style={ styles.router }>*/}
-
-                {/*</View>*/}
+                <View style={ styles.router }>
+                    <Router/>
+                </View>
                 <View style={ styles.footer }>
                     <FooterTabs/>
                 </View>
-
-
             </Provider>
-
         );
     }
 }
 const styles = StyleSheet.create({
-    // router: {
-    //     flex: 1,
-    // },
+    router: {
+        height: '90%'
+        // flex: 6,
+    },
     footer: {
+        height: '10%'
         // flex: 1,
-        justifyContent: 'flex-end',
+        // justifyContent: 'flex-end'
     }
 })
