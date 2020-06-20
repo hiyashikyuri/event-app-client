@@ -36,9 +36,10 @@ export default function HomeScreen(props) {
     const getData = () => {
         setIsFetching(true);
         //OPTION 2 - FAKE API
-        axios.get(`${apiPath}events`)
-            .then(res => res.data)
-            .then((data) => dispatch(addEvents(data)))
+        axios.get(`${ apiPath }events`)
+            .then((res) => {
+                dispatch(addEvents(res.data.response))
+            })
             .catch(error => alert(error.message))
             .finally(() => setIsFetching(false));
     };
@@ -73,8 +74,7 @@ export default function HomeScreen(props) {
 
     //6 - DELETE QUOTE
     const onDelete = (id) => {
-        axios.delete(`${apiPath}events/${id}`, { data: { id: id } })
-            // TODO, reducerを入れる
+        axios.delete(`${ apiPath }events/${ id }`, { data: { id: id } })
             .then((res) => dispatch(deleteEvent(id)))
             .catch(error => alert(error.message))
             .finally(() => setIsFetching(false));
@@ -95,7 +95,7 @@ export default function HomeScreen(props) {
                 <FlatList
                     data={ events }
                     renderItem={ renderItem }
-                    keyExtractor={ (item, index) => `events_${ index }` }/>
+                    keyExtractor={ (item) => item.id }/>
                 <TouchableHighlight
                     style={ styles.floatingButton }
                     underlayColor='#ff7043'

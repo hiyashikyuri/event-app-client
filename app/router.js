@@ -7,19 +7,19 @@ import CreateEventScreen from './screens/CreateEventScreen'
 import EventDetailScreen from "./screens/EventDetailScreen";
 
 const AppStack = createStackNavigator({
-    Home:{
+    Home: {
         screen: HomeScreen,
         navigationOptions: ({ navigation }) => ({
             title: `イベント一覧`,
         }),
     },
-    CreateEvent:{
+    CreateEvent: {
         screen: CreateEventScreen,
         navigationOptions: ({ navigation }) => ({
             title: `イベント`,
         }),
     },
-    EventDetail:{
+    EventDetail: {
         screen: EventDetailScreen,
         navigationOptions: ({ navigation }) => ({
             title: `イベント詳細`,
@@ -32,7 +32,7 @@ const RoutesStack = createSwitchNavigator(
         Loading: LoadingScreen,
         App: AppStack
     },
-    {initialRouteName: 'Loading'}
+    { initialRouteName: 'Loading' }
 );
 
 const Router = createAppContainer(RoutesStack);

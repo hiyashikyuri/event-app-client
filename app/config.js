@@ -1,1 +1,1 @@
-export const apiPath = 'http://localhost:3001/';
+export const apiPath = 'http://localhost:3001/api/';
