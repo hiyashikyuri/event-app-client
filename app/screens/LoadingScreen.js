@@ -25,11 +25,9 @@ export default function LoadingScreen(props) {
     }
 
     function checkLocalData(){
-        checkLogin()
-        // const accessToken = await AsyncStorage.getItem('accessToken');
-        // const client = await AsyncStorage.getItem('client');
-        // const uid = await AsyncStorage.getItem('uid');
-        // console.log(accessToken, client, uid);
+        // checkLogin()
+
+
         //Check if LocalStorage has been populated with the sample data
         // AsyncStorage.getItem('quotes', (err, data) => {
         //     //if it doesn't exist, extract from json fil
@@ -41,6 +39,7 @@ export default function LoadingScreen(props) {
         //         props.navigation.navigate('App'); //Navigate to the home page
         //     }
         // });
+        props.navigation.navigate('Login');
     }
 
     return <AppLoading/>;

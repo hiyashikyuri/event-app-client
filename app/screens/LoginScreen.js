@@ -79,6 +79,7 @@ export default class LoginScreen extends React.Component {
                         onChangeText={ (password) => this.setState({ password }) }
                     />
                     { this.loginButton() }
+                    <Button title='会員登録する' onPress={() => this.props.navigation.navigate('Signup') } />
                 </View>
             </SafeAreaView>
         );

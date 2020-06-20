@@ -6,25 +6,26 @@ import HomeScreen from './screens/HomeScreen'
 import CreateEventScreen from './screens/CreateEventScreen'
 import EventDetailScreen from "./screens/EventDetailScreen";
 import LoginScreen from "./screens/LoginScreen";
+import SignupScreen from "./screens/SignupScreen";
 
 const AppStack = createStackNavigator({
         Home: {
             screen: HomeScreen,
             navigationOptions: ({ navigation }) => ({
                 title: `イベント一覧`,
-            }),
+            })
         },
         CreateEvent: {
             screen: CreateEventScreen,
             navigationOptions: ({ navigation }) => ({
                 title: `イベント`,
-            }),
+            })
         },
         EventDetail: {
             screen: EventDetailScreen,
             navigationOptions: ({ navigation }) => ({
                 title: `イベント詳細`,
-            }),
+            })
         }
     }
 );
@@ -32,7 +33,9 @@ const AppStack = createStackNavigator({
 const RoutesStack = createSwitchNavigator(
     {
         Loading: LoadingScreen,
+        // こちらはheaderの戻るボタンが表示されないので、ログイン関係はこちらに入れている
         Login: LoginScreen,
+        Signup: SignupScreen,
         App: AppStack
 
     },
