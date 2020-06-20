@@ -1,9 +1,8 @@
 import React from 'react';
-import { withNavigation } from 'react-navigation';
 import axios from 'axios';
 
-import { View, ActivityIndicator, TextInput, StyleSheet, AsyncStorage, SafeAreaView } from 'react-native';
-import { Button as ReactNativeBUtton } from 'react-native';
+import { ActivityIndicator, StyleSheet, AsyncStorage } from 'react-native';
+import { Button as ReactNativeButton } from 'react-native';
 import { apiAuthPath } from "../config";
 import { Container, Header, Button, Text, Content, Form, Item, Input, Label } from 'native-base';
 
@@ -51,13 +50,10 @@ export default class LoginScreen extends React.Component {
             return <ActivityIndicator size="small"/>;
         } else {
             return (
-                    <Button style={ styles.button }
-                            onPress={ () => {
-                                this.onSubmit();
-                            } }>
-                        <Text style={ styles.text }>ログイン</Text>
-                    </Button>
-                )
+                <Button style={ styles.button } onPress={ () => this.onSubmit() }>
+                    <Text style={ styles.text }>ログイン</Text>
+                </Button>
+            )
         }
     }
 
@@ -69,7 +65,7 @@ export default class LoginScreen extends React.Component {
                     { this.state.failed && <Text>ログインに失敗しました。</Text> }
                     <Form>
                         <Item inlineLabel>
-                            <Label>Username</Label>
+                            <Label>Email</Label>
                             <Input onChangeText={ (email) => this.setState({ email }) }/>
                         </Item>
                         <Item inlineLabel last>
@@ -78,31 +74,9 @@ export default class LoginScreen extends React.Component {
                         </Item>
                     </Form>
                     { this.loginButton() }
-                    <ReactNativeBUtton
-                        title="会員登録する" onPress={ () => this.props.navigation.navigate('Signup') }></ReactNativeBUtton>
+                    <ReactNativeButton title="会員登録する" onPress={ () => this.props.navigation.navigate('Signup') }/>
                 </Content>
             </Container>
-
-
-            // <SafeAreaView>
-            //     <View>
-            //         { this.state.failed && <Text>ログインに失敗しました。</Text> }
-            //
-            //         <TextInput
-            //             style={ styles.textInput }
-            //             placeholder="email"
-            //             onChangeText={ (email) => this.setState({ email }) }
-            //         />
-            //         <TextInput
-            //             secureTextEntry={ true }
-            //             style={ styles.textInput }
-            //             placeholder="パスワード"
-            //             onChangeText={ (password) => this.setState({ password }) }
-            //         />
-            //         { this.loginButton() }
-            //         <Button title='会員登録する' onPress={() => this.props.navigation.navigate('Signup') } />
-            //     </View>
-            // </SafeAreaView>
         );
     }
 }
@@ -121,7 +95,6 @@ const styles = StyleSheet.create({
         margin: 30
     },
     text: {
-        //
         marginLeft: 'auto',
         marginRight: 'auto',
         marginTop: 'auto',
@@ -129,6 +102,3 @@ const styles = StyleSheet.create({
 
     }
 });
-
-// test@gmail.com
-// 11111111
