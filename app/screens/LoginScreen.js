@@ -3,10 +3,9 @@ import { withNavigation } from 'react-navigation';
 import axios from 'axios';
 
 import { View, Button, ActivityIndicator, Text, TextInput, StyleSheet, AsyncStorage, SafeAreaView } from 'react-native';
+import { apiAuthPath } from "../config";
 
 export default class LoginScreen extends React.Component {
-    
-    url = 'http://localhost:3001/';
     
     constructor(props) {
         super(props);
@@ -27,7 +26,7 @@ export default class LoginScreen extends React.Component {
     onSubmit() {
         this.setState({ loading: true });
         return (
-            axios.post(`${ this.url }api/auth/sign_in`, {
+            axios.post(`${ apiAuthPath }sign_in`, {
                 email: this.state.email,
                 password: this.state.password
             }).then(response => {
@@ -41,7 +40,7 @@ export default class LoginScreen extends React.Component {
                     AsyncStorage.setItem('uid', uid);
                     
                     this.setState({ failed: false });
-                    this.props.navigation.navigate('main');
+                    this.props.navigation.navigate('Home');
                     
                 } else {
                     this.setState({ failed: true });
