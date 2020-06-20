@@ -35,7 +35,7 @@ export default function EventDetailScreen(props) {
 
 
     //4 - RENDER
-    let disabled = (title.length > 0 && body.length > 0) ? false : true;
+    // let disabled = (title.length > 0 && body.length > 0) ? false : true;
     return (
         <SafeAreaView style={ styles.container }>
             <View>
