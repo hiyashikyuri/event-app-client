@@ -25,7 +25,7 @@ export default function LoadingScreen(props) {
     }
 
     function checkLocalData(){
-        // checkLogin()
+        checkLogin()
 
 
         //Check if LocalStorage has been populated with the sample data
@@ -39,7 +39,7 @@ export default function LoadingScreen(props) {
         //         props.navigation.navigate('App'); //Navigate to the home page
         //     }
         // });
-        props.navigation.navigate('Login');
+        // props.navigation.navigate('Login');
     }
 
     return <AppLoading/>;

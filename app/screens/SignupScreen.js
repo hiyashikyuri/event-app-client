@@ -5,51 +5,42 @@ import axios from 'axios';
 import { View, Button, ActivityIndicator, Text, TextInput, StyleSheet, AsyncStorage, SafeAreaView } from 'react-native';
 import { apiAuthPath } from "../config";
 
-export default class LoginScreen extends React.Component {
+export default class SignupScreen extends React.Component {
     
     constructor(props) {
         super(props);
         this.state = {
+            name: '',
             email: '',
             password: '',
+            password_confirmation: '',
             loading: false,
             failed: false
         };
     }
-
+    
     onSubmit() {
         this.setState({ loading: true });
         return (
-            axios.post(`${ apiAuthPath }sign_in`, {
+            axios.post(`${ apiAuthPath }`, {
+                name: this.state.name,
                 email: this.state.email,
-                password: this.state.password
+                password: this.state.password,
+                password_confirmation: this.state.password_confirmation
             }).then(response => {
                 this.setState({ loading: false });
-                const token = response.headers['access-token'];
-                const client = response.headers['client'];
-                const uid = response.headers['uid'];
-                if (token && client && uid) {
-                    AsyncStorage.setItem('accessToken', token);
-                    AsyncStorage.setItem('client', client);
-                    AsyncStorage.setItem('uid', uid);
-                    
-                    this.setState({ failed: false });
-                    this.props.navigation.navigate('Home');
-                    
-                } else {
-                    this.setState({ failed: true });
-                }
+                this.props.navigation.navigate('Login');
             }).catch(data => {
                 this.setState({ loading: false });
             })
         );
     }
-    
-    loginButton() {
+
+    signupButton() {
         if (this.state.loading) {
             return <ActivityIndicator size="small"/>;
         } else {
-            return <Button title="ログイン" onPress={ () => {
+            return <Button title="会員登録" onPress={ () => {
                 this.onSubmit();
             } }/>;
         }
@@ -60,20 +51,30 @@ export default class LoginScreen extends React.Component {
             <SafeAreaView>
                 <View>
                     { this.state.failed && <Text>ログインに失敗しました。</Text> }
-                    
                     <TextInput
                         style={ styles.textInput }
-                        placeholder="email"
+                        placeholder='お名前'
+                        onChangeText={ (name) => this.setState({ name }) }
+                    />
+                    <TextInput
+                        style={ styles.textInput }
+                        placeholder='メールアドレス'
                         onChangeText={ (email) => this.setState({ email }) }
                     />
                     <TextInput
                         secureTextEntry={ true }
                         style={ styles.textInput }
-                        placeholder="パスワード"
+                        placeholder='パスワード'
                         onChangeText={ (password) => this.setState({ password }) }
                     />
-                    { this.loginButton() }
-                    <Button title='会員登録する' onPress={() => this.props.navigation.navigate('Signup') } />
+                    <TextInput
+                        secureTextEntry={ true }
+                        style={ styles.textInput }
+                        placeholder='パスワード確認用'
+                        onChangeText={ (password_confirmation) => this.setState({ password_confirmation }) }
+                    />
+                    { this.signupButton() }
+                    <Button title='ログインする' onPress={() => this.props.navigation.navigate('Login') } />
                 </View>
             </SafeAreaView>
         );
