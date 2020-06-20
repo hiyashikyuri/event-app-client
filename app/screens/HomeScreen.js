@@ -11,8 +11,8 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { apiPath } from '../config';
-import { addEvents, deleteEvent } from "../redux/actions/actions";
-import ListItem from "../components/ListItem";
+import { addEvents, deleteEvent } from '../redux/actions/events';
+import ListItem from '../components/ListItem';
 
 export default function HomeScreen(props) {
     const dispatch = useDispatch();
@@ -22,8 +22,8 @@ export default function HomeScreen(props) {
     const [isFetching, setIsFetching] = useState(false);
 
     //Access Redux Store State
-    const dataReducer = useSelector((state) => state.dataReducer);
-    const { events } = dataReducer;
+    const eventReducer = useSelector((state) => state.eventReducer);
+    const { events } = eventReducer;
 
     //==================================================================================================
 
@@ -95,7 +95,7 @@ export default function HomeScreen(props) {
                 <FlatList
                     data={ events }
                     renderItem={ renderItem }
-                    keyExtractor={ (item) => item.id.toString() }/>
+                    keyExtractor={ (item) => item.id }/>
                 <TouchableHighlight
                     style={ styles.floatingButton }
                     underlayColor='#ff7043'

@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import { Container, Header, Content, Footer, FooterTab, Button, Icon } from 'native-base';
-import { AsyncStorage } from "react-native";
+import { AsyncStorage } from 'react-native';
 
 export default class FooterTabs extends React.Component {
     logout() {
         AsyncStorage.removeItem('accessToken');
         AsyncStorage.removeItem('client');
         AsyncStorage.removeItem('uid');
-        console.log('----------------')
-        console.log(this.props)
-        console.log('----------------')
-        this.props.navigation.navigate('login');
+        // this.props.navigation.navigate('login');
     }
 
     render() {

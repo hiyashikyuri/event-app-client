@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import { ActivityIndicator, StyleSheet, AsyncStorage } from 'react-native';
 import { Button as ReactNativeButton } from 'react-native';
-import { apiAuthPath } from "../config";
+import { apiAuthPath } from '../config';
 import { Container, Header, Button, Text, Content, Form, Item, Input, Label } from 'native-base';
 
 export default class LoginScreen extends React.Component {

@@ -4,9 +4,9 @@ import { createStackNavigator } from 'react-navigation-stack';
 import LoadingScreen from './screens/LoadingScreen'
 import HomeScreen from './screens/HomeScreen'
 import CreateEventScreen from './screens/CreateEventScreen'
-import EventDetailScreen from "./screens/EventDetailScreen";
-import LoginScreen from "./screens/LoginScreen";
-import SignupScreen from "./screens/SignupScreen";
+import EventDetailScreen from './screens/EventDetailScreen';
+import LoginScreen from './screens/LoginScreen';
+import SignupScreen from './screens/SignupScreen';
 
 const AppStack = createStackNavigator({
         Home: {

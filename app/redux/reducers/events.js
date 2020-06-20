@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 
-import { EVENTS_AVAILABLE, ADD_EVENT, UPDATE_EVENT, DELETE_EVENT } from "../actions/actions" //Import the actions types constant we defined in our actions
+import { EVENTS_AVAILABLE, ADD_EVENT, UPDATE_EVENT, DELETE_EVENT } from '../actions/events'; //Import the actions types constant we defined in our actions
 
 let dataState = { events: [] };
 
-const dataReducer = (state = dataState, action) => {
+export default function eventReducer(state = dataState, action) {
     switch (action.type) {
         case ADD_EVENT:
             let { event } = action.data;
@@ -14,14 +14,14 @@ const dataReducer = (state = dataState, action) => {
 
             clone.unshift(event); //add the new quote to the top
 
-            return {...state, events: clone};
+            return { ...state, events: clone };
 
         case EVENTS_AVAILABLE:
             let { events } = action.data;
 
-            return {...state, events};
+            return { ...state, events };
 
-        case UPDATE_EVENT:{
+        case UPDATE_EVENT: {
             let { event } = action.data;
 
             //clone the current state
@@ -33,10 +33,10 @@ const dataReducer = (state = dataState, action) => {
             //if the quote is in the array, update the quote
             if (index !== -1) clone[index] = event;
 
-            return {...state, events: clone};
+            return { ...state, events: clone };
         }
 
-        case DELETE_EVENT:{
+        case DELETE_EVENT: {
             let { id } = action.data;
 
             //clone the current state
@@ -48,7 +48,7 @@ const dataReducer = (state = dataState, action) => {
             //if the quote is in the array, remove the quote
             if (index !== -1) clone.splice(index, 1);
 
-            return {...state, events: clone};
+            return { ...state, events: clone };
         }
 
         default:
@@ -56,7 +56,3 @@ const dataReducer = (state = dataState, action) => {
     }
 };
 
-// Combine all the reducers
-const rootReducer = combineReducers({dataReducer});
-
-export default rootReducer;

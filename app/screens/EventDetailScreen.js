@@ -15,7 +15,7 @@ import { Header } from 'react-navigation-stack';
 
 import axios from "axios";
 
-import { addEvent, updateEvent } from "../redux/actions/actions";
+import { addEvent, updateEvent } from '../redux/actions/events';
 
 
 const MAX_LENGTH = 250;

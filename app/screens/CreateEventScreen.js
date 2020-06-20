@@ -15,8 +15,8 @@ import { Header } from 'react-navigation-stack';
 
 import axios from "axios";
 
-import { addEvent, updateEvent } from "../redux/actions/actions";
-import { apiPath } from "../config";
+import { addEvent, updateEvent } from '../redux/actions/events';
+import { apiPath } from '../config';
 
 
 const MAX_LENGTH = 250;
@@ -29,9 +29,9 @@ export default function CreateEventScreen(props) {
 
     //1 - DECLARE VARIABLES
     const [isSaving, setIsSaving] = useState(false);
-    const [id] = useState(event ? event.id : "");
-    const [title, setTitle] = useState(event ? event.title : "");
-    const [body, setBody] = useState(event ? event.body : "");
+    const [id] = useState(event ? event.id : '');
+    const [title, setTitle] = useState(event ? event.title : '');
+    const [body, setBody] = useState(event ? event.body : '');
 
     //2 - GET FLATLIST DATA
     const onSave = () => {
@@ -44,16 +44,16 @@ export default function CreateEventScreen(props) {
             event_['title'] = title;
             event_['body'] = body;
             axios.put(`${apiPath}events/${id}`, event_)
-                .then(res => res.data)
+                .then(res => res.data.response)
                 .then((data) => {
                     dispatch(updateEvent(data));
                     navigation.goBack();
                 })
                 .catch(error => alert(error.message))
         } else {
-            event_ = { "id": id, "title": title, "body": body };
+            event_ = { id: id, title: title, body: body , user_id: 1};
             axios.post(`${apiPath}events/`, event_)
-                .then(res => res.data)
+                .then(res => res.data.response)
                 .then((data) => {
                     dispatch(addEvent(data));
                     navigation.goBack();
