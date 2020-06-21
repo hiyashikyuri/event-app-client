@@ -1,11 +1,7 @@
 import React from 'react';
-import axios from 'axios';
-
-import { ActivityIndicator, StyleSheet, AsyncStorage } from 'react-native';
-import { Button as ReactNativeButton } from 'react-native';
-import { apiAuthPath } from '../shared/config';
+import { ActivityIndicator, StyleSheet, Button as ReactNativeButton } from 'react-native';
 import { Container, Header, Button, Text, Content, Form, Item, Input, Label } from 'native-base';
-import {setAuthData} from "../shared/auth_service";
+import { setAuthData, login } from '../shared/auth_service';
 
 export default class LoginScreen extends React.Component {
     constructor(props) {
@@ -21,28 +17,21 @@ export default class LoginScreen extends React.Component {
     onSubmit() {
         this.setState({ loading: true });
         return (
-            axios.post(`${ apiAuthPath }sign_in`, {
-                email: this.state.email,
-                password: this.state.password
-            }).then(response => {
-                this.setState({ loading: false });
-                const token = response.headers['access-token'];
-                const client = response.headers['client'];
-                const uid = response.headers['uid'];
-                if (token && client && uid) {
-                    setAuthData(token, client, uid)
-
-                    /*AsyncStorage.setItem('accessToken', token);
-                    AsyncStorage.setItem('client', client);
-                    AsyncStorage.setItem('uid', uid);*/
-
-                    this.setState({ failed: false });
-                    this.props.navigation.navigate('Home');
-
-                } else {
-                    this.setState({ failed: true });
-                }
-            }).catch(data => {
+            login(this.state.email, this.state.password)
+                .then(response => {
+                    this.setState({ loading: false });
+                    const token = response.headers['access-token'];
+                    const client = response.headers['client'];
+                    const uid = response.headers['uid'];
+                    if (token && client && uid) {
+                        // storageにtoken情報などを追加
+                        setAuthData(token, client, uid)
+                        this.setState({ failed: false });
+                        this.props.navigation.navigate('Home');
+                    } else {
+                        this.setState({ failed: true });
+                    }
+                }).catch(data => {
                 this.setState({ loading: false });
             })
         );
