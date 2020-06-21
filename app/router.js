@@ -7,6 +7,7 @@ import CreateEventScreen from './screens/CreateEventScreen'
 import EventDetailScreen from './screens/EventDetailScreen';
 import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
+import SwipeScreen from "./screens/SwipeScreen";
 
 const AppStack = createStackNavigator({
         Home: {
@@ -36,6 +37,7 @@ const RoutesStack = createSwitchNavigator(
         // こちらはheaderの戻るボタンが表示されないので、ログイン関係はこちらに入れている
         Login: LoginScreen,
         Signup: SignupScreen,
+        Swipe: SwipeScreen,
         App: AppStack
     },
     { initialRouteName: 'Loading' }

@@ -68,7 +68,8 @@ export default class SignupScreen extends React.Component {
                         </Item>
                     </Form>
                     { this.signupButton() }
-                    <ReactNativeButton title="ログインする" onPress={ () => this.props.navigation.navigate('Login') }/>
+                    <ReactNativeButton title='ログインする' onPress={ () => this.props.navigation.navigate('Login') }/>
+                    <ReactNativeButton title='説明画面に戻る' onPress={ () => this.props.navigation.navigate('Swipe') }/>
                 </Content>
             </Container>
         );

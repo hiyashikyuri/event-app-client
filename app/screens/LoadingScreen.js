@@ -12,7 +12,7 @@ export default function LoadingScreen(props) {
         const isValid = await prepareLocalToken()
 
         if (!isValid) {
-            return props.navigation.navigate('Login');
+            return props.navigation.navigate('Swipe');
         }
 
         // APIにtokenを確かめるところ
@@ -27,7 +27,7 @@ export default function LoadingScreen(props) {
             .catch(error => {
                 // tokenが古い、もしくは間違っている可能性があるので、not validなら削除する
                 removeLocalToken();
-                props.navigation.navigate('Login');
+                props.navigation.navigate('Swipe');
             });
     }
 
