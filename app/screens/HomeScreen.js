@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { Container } from 'native-base';
 import { FlatList, StyleSheet, SafeAreaView, View, Text, ActivityIndicator, TouchableHighlight } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { addEvents, deleteEvent } from '../redux/actions/events';
 import ListItem from '../components/ListItem';
 import { findAll, remove } from "../shared/event_service";
+import FooterTabs from "../components/Footer";
+import styles from "../styles";
 
 export default function HomeScreen(props) {
     const dispatch = useDispatch();
@@ -82,50 +85,22 @@ export default function HomeScreen(props) {
         );
     } else {
         return (
-            <SafeAreaView style={ styles.container }>
+            <Container style={ styles.container }>
                 <FlatList
                     data={ events }
                     renderItem={ renderItem }
                     keyExtractor={ (item) => `item-${ item.id.toString() }` }/>
-                <TouchableHighlight
-                    style={ styles.floatingButton }
-                    underlayColor='#ff7043'
-                    onPress={ () => navigation.navigate('CreateEvent', { title: "New Quote" }) }>
-                    <Text style={ { fontSize: 25, color: 'white' } }>+</Text>
-                </TouchableHighlight>
-            </SafeAreaView>
+                {/*<TouchableHighlight*/}
+                {/*    style={ styles.floatingButton }*/}
+                {/*    underlayColor='#ff7043'*/}
+                {/*    onPress={ () => navigation.navigate('CreateEvent') }>*/}
+                {/*    <Text style={ { fontSize: 25, color: 'white' } }>+</Text>*/}
+                {/*</TouchableHighlight>*/}
+                <View style={ styles.footer }>
+                    <FooterTabs navigation={ navigation }/>
+                </View>
+            </Container>
         );
     }
 };
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#F5F5F5'
-    },
-    activityIndicatorContainer: {
-        backgroundColor: "#fff",
-        alignItems: 'center',
-        justifyContent: 'center',
-        flex: 1,
-    },
-    floatingButton: {
-        backgroundColor: '#6B9EFA',
-        borderColor: '#6B9EFA',
-        height: 55,
-        width: 55,
-        borderRadius: 55 / 2,
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: 'absolute',
-        bottom: 60,
-        right: 15,
-        shadowColor: "#000000",
-        shadowOpacity: 0.5,
-        shadowRadius: 2,
-        shadowOffset: {
-            height: 1,
-            width: 0
-        }
-    }
-});

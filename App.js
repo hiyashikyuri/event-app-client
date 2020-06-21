@@ -10,21 +10,16 @@ export default class App extends Component {
     render() {
         return (
             <Provider store={ store }>
-                <View style={ styles.router }>
-                    <Router/>
-                </View>
-                <View style={ styles.footer }>
-                    <FooterTabs/>
-                </View>
+                <Router/>
             </Provider>
         );
     }
 }
-const styles = StyleSheet.create({
-    router: {
-        height: '90%'
-    },
-    footer: {
-        height: '10%'
-    }
-})
+// const styles = StyleSheet.create({
+//     router: {
+//         height: '90%'
+//     },
+//     footer: {
+//         height: '10%'
+//     }
+// })

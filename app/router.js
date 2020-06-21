@@ -1,4 +1,7 @@
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import {
+    createAppContainer,
+    createSwitchNavigator
+} from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 import LoadingScreen from './screens/LoadingScreen'

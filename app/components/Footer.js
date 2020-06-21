@@ -18,7 +18,7 @@ export default class FooterTabs extends React.Component {
                         <Button active>
                             <Icon name="home"/>
                         </Button>
-                        <Button>
+                        <Button onPress={() => this.props.navigation.navigate('CreateEvent') }>
                             <Icon name="camera"/>
                         </Button>
                         <Button>
