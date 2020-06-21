@@ -46,7 +46,7 @@ export default function CreateEventScreen(props) {
     //4 - RENDER
     let disabled = (title.length > 0 && body.length > 0) ? false : true;
     return (
-        <KeyboardAvoidingView style={styles.wrapper} keyboardVerticalOffset={ Header.HEIGHT } behavior="padding">
+        <KeyboardAvoidingView style={styles.wrapper}  behavior="padding">
             <Container style={ styles.container } >
                 <View style={ styles.flex }>
                     <TextInput
