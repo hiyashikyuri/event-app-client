@@ -37,9 +37,7 @@ const RoutesStack = createSwitchNavigator(
         Login: LoginScreen,
         Signup: SignupScreen,
         App: AppStack
-
     },
-
     { initialRouteName: 'Loading' }
 );
 

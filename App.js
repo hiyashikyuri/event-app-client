@@ -23,11 +23,8 @@ export default class App extends Component {
 const styles = StyleSheet.create({
     router: {
         height: '90%'
-        // flex: 6,
     },
     footer: {
         height: '10%'
-        // flex: 1,
-        // justifyContent: 'flex-end'
     }
 })

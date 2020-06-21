@@ -22,11 +22,8 @@ export default function CreateEventScreen(props) {
 
     //2 - GET FLATLIST DATA
     const onSave = () => {
-        let editObj = event !== null;
-
-        // TODO, IDがあればに変更したい
         //OPTION 2 - FAKE API
-        if (editObj) {
+        if (id) {
             edit(id, title, body)
                 .then(res => res.data.response)
                 .then((data) => {
