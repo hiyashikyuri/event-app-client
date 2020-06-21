@@ -9,15 +9,29 @@ export default class FooterTabs extends React.Component {
     }
 
     render() {
+        let homeActive, eventActive = false;
+        const routeName = this.props.navigation.state.routeName;
+        switch (routeName) {
+            case 'Home':
+                homeActive = true;
+                break;
+            case 'CreateEvent':
+                eventActive = true;
+                break;
+            default:
+                homeActive = true;
+                break;
+        }
+
         return (
             // ログインしていたら表示しないようにする
             <Container>
                 <Footer>
                     <FooterTab>
-                        <Button active onPress={ () => this.props.navigation.navigate('Home') }>
+                        <Button active={ homeActive } onPress={ () => this.props.navigation.navigate('Home') }>
                             <Icon name="home"/>
                         </Button>
-                        <Button onPress={ () => this.props.navigation.navigate('CreateEvent') }>
+                        <Button active={ eventActive } onPress={ () => this.props.navigation.navigate('CreateEvent') }>
                             <Icon name="camera"/>
                         </Button>
                         {/*<Button>
