@@ -1,8 +1,7 @@
 import React from 'react';
-import axios from 'axios';
 import { Container, Header, Button, Text, Content, Form, Item, Input, Label } from 'native-base';
 import { ActivityIndicator, StyleSheet, Button as ReactNativeButton } from 'react-native';
-import { apiAuthPath } from '../shared/config';
+import { signup } from '../shared/auth_service';
 
 export default class SignupScreen extends React.Component {
 
@@ -21,15 +20,11 @@ export default class SignupScreen extends React.Component {
     onSubmit() {
         this.setState({ loading: true });
         return (
-            axios.post(`${ apiAuthPath }`, {
-                name: this.state.name,
-                email: this.state.email,
-                password: this.state.password,
-                password_confirmation: this.state.password_confirmation
-            }).then(response => {
-                this.setState({ loading: false });
-                this.props.navigation.navigate('Login');
-            }).catch(data => {
+            signup(this.state.name, this.state.email, this.state.password,this.state.password_confirmation)
+                .then(response => {
+                    this.setState({ loading: false });
+                    this.props.navigation.navigate('Login');
+                }).catch(data => {
                 this.setState({ loading: false });
             })
         );
@@ -90,7 +85,6 @@ const styles = StyleSheet.create({
         borderRadius: 8,
     },
     button: {
-
         margin: 30
     },
     text: {
@@ -98,6 +92,5 @@ const styles = StyleSheet.create({
         marginRight: 'auto',
         marginTop: 'auto',
         marginBottom: 'auto',
-
     }
 });

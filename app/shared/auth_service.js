@@ -42,12 +42,13 @@ export async function getUserData() {
         return '';
     });
 }
+
 /* getter/setter */
 
 /* tokenの確認などを行うメソッド */
 export async function prepareLocalToken() {
     const authData = await getAuthData();
-    const accessToken = authData.accessToken ?  authData.accessToken : '';
+    const accessToken = authData.accessToken ? authData.accessToken : '';
     const client = authData.client ? authData.client : '';
     const uid = authData.uid ? authData.uid : '';
     return (accessToken.length > 0 && client.length > 0 && uid.length > 0) ? true : false
@@ -62,6 +63,7 @@ export async function validateToken() {
 export function removeLocalToken() {
     storage.remove({ key: 'authData' });
 }
+
 /* tokenの確認などを行うメソッド */
 
 
@@ -69,6 +71,16 @@ export function removeLocalToken() {
 export async function login(email, password) {
     return await axios.post(`${ apiAuthPath }sign_in`, { email: email, password: password });
 }
+
+export async function signup(name, email, password, password_confirmation) {
+    return await axios.post(`${ apiAuthPath }`, {
+        name: name,
+        email: email,
+        password: password,
+        password_confirmation: password_confirmation
+    });
+}
+
 /* サインインなどを行うところ */
 
 
