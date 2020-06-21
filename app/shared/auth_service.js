@@ -59,6 +59,17 @@ export async function validateToken() {
     return await axios.get(`${ apiAuthPath }validate_token?access-token=${ authData.accessToken }&client=${ authData.client }&uid=${ authData.uid }`);
 }
 
+export async function getAuthorization() {
+    const authData = await getAuthData();
+    return {
+        headers: {
+            'access-token': authData.accessToken,
+            client: authData.client,
+            uid: authData.uid
+        }
+    }
+}
+
 export function removeLocalToken() {
     storage.remove({ key: 'authData' });
 }

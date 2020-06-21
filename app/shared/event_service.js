@@ -1,54 +1,25 @@
 import axios from 'axios';
-import { apiAuthPath, apiPath } from './config';
-import { getAuthData, getUserData } from "./auth_service";
+import { apiPath } from './config';
+import { getAuthorization } from "./auth_service";
 
 export async function findAll() {
-    const authData = await getAuthData();
-    const config = {
-        headers: {
-            'access-token': authData.accessToken,
-            client: authData.client,
-            uid: authData.uid
-        }
-    }
+    const config = await getAuthorization();
     return await axios.get(`${ apiPath }events`, config);
 }
 
-
 export async function save(title, body) {
-    const authData = await getAuthData();
-    const config = {
-        headers: {
-            'access-token': authData.accessToken,
-            client: authData.client,
-            uid: authData.uid
-        }
-    }
+    const config = await getAuthorization();
     const event = { title: title, body: body };
     return await axios.post(`${ apiPath }events/`, { event }, config);
 }
 
 export async function edit(id, title, body) {
-    const authData = await getAuthData();
-    const config = {
-        headers: {
-            'access-token': authData.accessToken,
-            client: authData.client,
-            uid: authData.uid
-        }
-    }
+    const config = await getAuthorization();
     const event = { id: id, title: title, body: body };
     return await axios.put(`${apiPath}events/${id}`, { event }, config)
 }
 
 export async function remove(id) {
-    const authData = await getAuthData();
-    const config = {
-        headers: {
-            'access-token': authData.accessToken,
-            client: authData.client,
-            uid: authData.uid
-        }
-    }
+    const config = await getAuthorization();
     return await axios.delete(`${ apiPath }events/${ id }`, config);
 }
