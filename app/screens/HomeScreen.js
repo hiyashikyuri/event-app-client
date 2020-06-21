@@ -90,12 +90,6 @@ export default function HomeScreen(props) {
                     data={ events }
                     renderItem={ renderItem }
                     keyExtractor={ (item) => `item-${ item.id.toString() }` }/>
-                {/*<TouchableHighlight*/}
-                {/*    style={ styles.floatingButton }*/}
-                {/*    underlayColor='#ff7043'*/}
-                {/*    onPress={ () => navigation.navigate('CreateEvent') }>*/}
-                {/*    <Text style={ { fontSize: 25, color: 'white' } }>+</Text>*/}
-                {/*</TouchableHighlight>*/}
                 <View style={ styles.footer }>
                     <FooterTabs navigation={ navigation }/>
                 </View>

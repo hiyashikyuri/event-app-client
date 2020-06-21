@@ -15,11 +15,3 @@ export default class App extends Component {
         );
     }
 }
-// const styles = StyleSheet.create({
-//     router: {
-//         height: '90%'
-//     },
-//     footer: {
-//         height: '10%'
-//     }
-// })
