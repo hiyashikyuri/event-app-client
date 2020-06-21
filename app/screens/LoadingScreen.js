@@ -1,8 +1,9 @@
-import React, {useEffect} from 'react';
-import {AsyncStorage} from 'react-native';
+import React, { useEffect } from 'react';
+import { AsyncStorage } from 'react-native';
 import { AppLoading } from 'expo';
 import axios from 'axios';
 import { apiAuthPath } from '../shared/config';
+import { getAuthData, setAuthData, setUserData} from '../shared/auth_service'
 
 //1 - LOADING SCREEN
 export default function LoadingScreen(props) {
@@ -10,36 +11,34 @@ export default function LoadingScreen(props) {
     useEffect(() => checkLocalData(), []);
 
     const checkLogin = async () => {
-        const accessToken = await AsyncStorage.getItem('accessToken');
-        const client = await AsyncStorage.getItem('client');
-        const uid = await AsyncStorage.getItem('uid');
-        return axios.get(`${apiAuthPath}validate_token?access-token=${ accessToken }&client=${ client }&uid=${ uid }`)
-            .then((data) => {
-                props.navigation.navigate('Home');
-                // console.log(data)
-            })
-            .catch(error => {
-                // alert(error.message)
-                props.navigation.navigate('Login');
-            })
+        const authData = await getAuthData();
+
+        const accessToken = authData.accessToken ?  authData.accessToken : '';
+        const client = authData.client ? authData.client : '';
+        const uid = authData.uid ? authData.uid : '';
+
+        const isValid = (accessToken.length > 0 && client.length > 0 && uid.length > 0) ? true : false
+
+        if (!isValid) {
+            return props.navigation.navigate('Login');
+        }
+
+        if (isValid) {
+            return axios.get(`${ apiAuthPath }validate_token?access-token=${ accessToken }&client=${ client }&uid=${ uid }`)
+                .then(data => data.data.data)
+                .then(data =>  {
+                    setUserData(data.id, data.name, data.email)
+                    props.navigation.navigate('Home');
+                })
+                .catch(error => {
+                    alert(error.message)
+                    props.navigation.navigate('Login');
+                });
+        }
     }
 
-    function checkLocalData(){
+    function checkLocalData() {
         checkLogin()
-
-
-        //Check if LocalStorage has been populated with the sample data
-        // AsyncStorage.getItem('quotes', (err, data) => {
-        //     //if it doesn't exist, extract from json fil
-        //     if (data === null){
-        //         AsyncStorage.setItem('quotes', JSON.stringify(SampleData.quotes));//save the initial data in Async
-        //
-        //         props.navigation.navigate('App'); //Navigate to the home page
-        //     }else{
-        //         props.navigation.navigate('App'); //Navigate to the home page
-        //     }
-        // });
-        // props.navigation.navigate('Login');
     }
 
     return <AppLoading/>;

@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { Container, Header, Content, Footer, FooterTab, Button, Icon } from 'native-base';
 import { AsyncStorage } from 'react-native';
+import storage from "../shared/storage";
 
 export default class FooterTabs extends React.Component {
     logout() {
-        AsyncStorage.removeItem('accessToken');
-        AsyncStorage.removeItem('client');
-        AsyncStorage.removeItem('uid');
+        storage.remove({ key: 'authData' });
         // this.props.navigation.navigate('login');
     }
 
@@ -25,7 +24,7 @@ export default class FooterTabs extends React.Component {
                         <Button>
                             <Icon active name="navigate"/>
                         </Button>
-                        <Button onPress={ () => this.logout() }>
+                        <Button onPress={ ()    => this.logout() }>
                             <Icon name="person"/>
                         </Button>
                     </FooterTab>

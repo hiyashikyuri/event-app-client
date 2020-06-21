@@ -95,7 +95,7 @@ export default function HomeScreen(props) {
                 <FlatList
                     data={ events }
                     renderItem={ renderItem }
-                    keyExtractor={ (item) => item.id }/>
+                    keyExtractor={ (item) => `item-${ item.id.toString() }` }/>
                 <TouchableHighlight
                     style={ styles.floatingButton }
                     underlayColor='#ff7043'

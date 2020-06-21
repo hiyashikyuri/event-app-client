@@ -5,6 +5,7 @@ import { ActivityIndicator, StyleSheet, AsyncStorage } from 'react-native';
 import { Button as ReactNativeButton } from 'react-native';
 import { apiAuthPath } from '../shared/config';
 import { Container, Header, Button, Text, Content, Form, Item, Input, Label } from 'native-base';
+import {setAuthData} from "../shared/auth_service";
 
 export default class LoginScreen extends React.Component {
     constructor(props) {
@@ -29,9 +30,11 @@ export default class LoginScreen extends React.Component {
                 const client = response.headers['client'];
                 const uid = response.headers['uid'];
                 if (token && client && uid) {
-                    AsyncStorage.setItem('accessToken', token);
+                    setAuthData(token, client, uid)
+
+                    /*AsyncStorage.setItem('accessToken', token);
                     AsyncStorage.setItem('client', client);
-                    AsyncStorage.setItem('uid', uid);
+                    AsyncStorage.setItem('uid', uid);*/
 
                     this.setState({ failed: false });
                     this.props.navigation.navigate('Home');
