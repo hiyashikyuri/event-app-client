@@ -1,18 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import {
-    FlatList,
-    StyleSheet,
-    SafeAreaView,
-    View,
-    Text,
-    ActivityIndicator,
-    TouchableHighlight
-} from 'react-native';
+import { FlatList, StyleSheet, SafeAreaView, View, Text, ActivityIndicator, TouchableHighlight } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
-import { apiPath } from '../shared/config';
 import { addEvents, deleteEvent } from '../redux/actions/events';
 import ListItem from '../components/ListItem';
+import { findAll, remove } from "../shared/event_service";
 
 export default function HomeScreen(props) {
     const dispatch = useDispatch();
@@ -36,7 +27,7 @@ export default function HomeScreen(props) {
     const getData = () => {
         setIsFetching(true);
         //OPTION 2 - FAKE API
-        axios.get(`${ apiPath }events`)
+        findAll()
             .then((res) => {
                 dispatch(addEvents(res.data.response))
             })
@@ -74,7 +65,7 @@ export default function HomeScreen(props) {
 
     //6 - DELETE QUOTE
     const onDelete = (id) => {
-        axios.delete(`${ apiPath }events/${ id }`, { data: { id: id } })
+        remove(id)
             .then((res) => dispatch(deleteEvent(id)))
             .catch(error => alert(error.message))
             .finally(() => setIsFetching(false));

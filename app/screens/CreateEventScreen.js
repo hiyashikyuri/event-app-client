@@ -1,22 +1,9 @@
 import React, { useState } from 'react';
-import {
-    KeyboardAvoidingView,
-    SafeAreaView,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableHighlight,
-    View,
-    AsyncStorage
-} from 'react-native';
-
+import { KeyboardAvoidingView, SafeAreaView, StyleSheet, Text, TextInput, TouchableHighlight, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { Header } from 'react-navigation-stack';
-
-import axios from "axios";
-
 import { addEvent, updateEvent } from '../redux/actions/events';
-import { apiPath } from '../shared/config';
+import { edit, save } from "../shared/event_service";
 
 
 const MAX_LENGTH = 250;
@@ -35,15 +22,12 @@ export default function CreateEventScreen(props) {
 
     //2 - GET FLATLIST DATA
     const onSave = () => {
-        let edit = event !== null;
-        let event_ = {};
+        let editObj = event !== null;
 
+        // TODO, IDがあればに変更したい
         //OPTION 2 - FAKE API
-        if (edit) {
-            event_ = event;
-            event_['title'] = title;
-            event_['body'] = body;
-            axios.put(`${apiPath}events/${id}`, event_)
+        if (editObj) {
+            edit(id, title, body)
                 .then(res => res.data.response)
                 .then((data) => {
                     dispatch(updateEvent(data));
@@ -51,8 +35,7 @@ export default function CreateEventScreen(props) {
                 })
                 .catch(error => alert(error.message))
         } else {
-            event_ = { id: id, title: title, body: body , user_id: 1};
-            axios.post(`${apiPath}events/`, event_)
+            save(title, body)
                 .then(res => res.data.response)
                 .then((data) => {
                     dispatch(addEvent(data));

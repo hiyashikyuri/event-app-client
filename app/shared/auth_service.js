@@ -1,7 +1,6 @@
-import { AsyncStorage } from "react-native";
-import axios from "axios";
-import { apiAuthPath } from "./config";
-import storage from "./storage";
+import axios from 'axios';
+import { apiAuthPath } from './config';
+import storage from './storage';
 
 /* getter/setter */
 export function setAuthData(token, client, uid) {
