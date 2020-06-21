@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Container, Header, Button, Text, Content, Form, Item, Input, Label } from 'native-base';
 import { ActivityIndicator, StyleSheet, Button as ReactNativeButton } from 'react-native';
-import { apiAuthPath } from '../config';
+import { apiAuthPath } from '../shared/config';
 
 export default class SignupScreen extends React.Component {
 

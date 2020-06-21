@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {AsyncStorage} from 'react-native';
 import { AppLoading } from 'expo';
 import axios from 'axios';
-import { apiAuthPath } from '../config';
+import { apiAuthPath } from '../shared/config';
 
 //1 - LOADING SCREEN
 export default function LoadingScreen(props) {

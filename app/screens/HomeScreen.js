@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import { apiPath } from '../config';
+import { apiPath } from '../shared/config';
 import { addEvents, deleteEvent } from '../redux/actions/events';
 import ListItem from '../components/ListItem';
 

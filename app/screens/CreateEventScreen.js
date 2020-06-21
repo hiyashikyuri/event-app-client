@@ -16,7 +16,7 @@ import { Header } from 'react-navigation-stack';
 import axios from "axios";
 
 import { addEvent, updateEvent } from '../redux/actions/events';
-import { apiPath } from '../config';
+import { apiPath } from '../shared/config';
 
 
 const MAX_LENGTH = 250;
