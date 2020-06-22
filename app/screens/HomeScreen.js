@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Container } from 'native-base';
-import { FlatList, StyleSheet, SafeAreaView, View, Text, ActivityIndicator, TouchableHighlight } from 'react-native';
+import { FlatList, View, ActivityIndicator } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { addEvents, deleteEvent } from '../redux/actions/events';
 import ListItem from '../components/ListItem';
@@ -12,35 +12,28 @@ export default function HomeScreen(props) {
     const dispatch = useDispatch();
     const { navigation } = props;
 
-    //1 - DECLARE VARIABLES
-    const [isFetching, setIsFetching] = useState(false);
+    // loadingを表示させるための変数
+    const [isLoading, setIsLoading] = useState(false);
 
-    //Access Redux Store State
+    // reduxの設定
     const eventReducer = useSelector((state) => state.eventReducer);
     const { events } = eventReducer;
 
-    //==================================================================================================
-
-    //2 - MAIN CODE BEGINS HERE
+    // ここから開始される
     useEffect(() => getData(), []);
 
-    //==================================================================================================
-
-    //3 - GET FLATLIST DATA
+    // APIから全てのイベント情報を取得してくる
     const getData = () => {
-        setIsFetching(true);
-        //OPTION 2 - FAKE API
+        setIsLoading(true);
         findAll()
             .then((res) => {
                 dispatch(addEvents(res.data.response))
             })
             .catch(error => alert(error.message))
-            .finally(() => setIsFetching(false));
+            .finally(() => setIsLoading(false));
     };
 
-    //==================================================================================================
-
-    //4 - RENDER FLATLIST ITEM
+    // 一つ一つのデータをリスト形式で表示させるためのメソッド
     const renderItem = ({ item, index }) => {
         return (
             <ListItem
@@ -53,31 +46,20 @@ export default function HomeScreen(props) {
         )
     };
 
-    const onDetail = (item) => {
-        navigation.navigate('EventDetail', { event: item, title: "Event DEtail" })
-    };
+    // Eventの操作メソッド
+    const onDetail = (item) => { navigation.navigate('EventDetail', { event: item }) };
 
-    //==================================================================================================
+    const onEdit = (item) => { navigation.navigate('CreateEvent', { event: item }) };
 
-    //5 - EDIT QUOTE
-    const onEdit = (item) => {
-        navigation.navigate('CreateEvent', { event: item, title: "Edit Quote" })
-    };
-
-    //==================================================================================================
-
-    //6 - DELETE QUOTE
     const onDelete = (id) => {
         remove(id)
             .then((res) => dispatch(deleteEvent(id)))
             .catch(error => alert(error.message))
-            .finally(() => setIsFetching(false));
+            .finally(() => setIsLoading(false));
     };
 
-    //==================================================================================================
-
-    //7 - RENDER
-    if (isFetching) {
+    // View部分
+    if (isLoading) {
         return (
             <View style={ styles.activityIndicatorContainer }>
                 <ActivityIndicator animating={ true }/>

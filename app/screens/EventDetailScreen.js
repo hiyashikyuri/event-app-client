@@ -1,53 +1,25 @@
 import React, { useState } from 'react';
-import {
-    KeyboardAvoidingView,
-    SafeAreaView,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableHighlight,
-    View,
-    AsyncStorage
-} from 'react-native';
-
-import { useDispatch } from 'react-redux';
-import { Header } from 'react-navigation-stack';
-
-import axios from "axios";
-
-import { addEvent, updateEvent } from '../redux/actions/events';
-
-
-const MAX_LENGTH = 250;
+import { SafeAreaView, StyleSheet, Text, View　} from 'react-native';
 
 export default function EventDetailScreen(props) {
-
-    const dispatch = useDispatch();
     const { navigation } = props;
 
-    let event = navigation.getParam('event', null);
+    // propsの中にあるnavigationからevent情報を取得
+    const event = navigation.getParam('event', null);
 
-    //1 - DECLARE VARIABLES
-    const [isSaving, setIsSaving] = useState(false);
-    const [id] = useState(event ? event.id : "");
-    const [title, setAuthor] = useState(event ? event.title : "");
-    const [body, setText] = useState(event ? event.body : "");
+    // 中身を表示させるまでにローディングを表示させることが可能
+    const [isLoading, setIsLoading] = useState(false);
 
-
-    //4 - RENDER
-    // let disabled = (title.length > 0 && body.length > 0) ? false : true;
+    // View部分
     return (
         <SafeAreaView style={ styles.container }>
             <View>
                 <Text>id：{ event.id }</Text>
                 <Text>作者：{ event.body }</Text>
-                {/*<Text>内容：{ event.text }</Text>*/}
             </View>
         </SafeAreaView>
-
     );
 }
-
 
 const styles = StyleSheet.create({
     flex: {
