@@ -4,8 +4,14 @@ import { Button as ReactNativeButton } from 'react-native';
 import { StyleSheet, ScrollView } from 'react-native';
 import { getUserData, removeLocalToken, userInfo } from '../shared/auth_service';
 import FooterTabs from "../components/Footer";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function SettingScreen(props) {
+
+    const dispatch = useDispatch();
+    // reduxの設定
+    const currentUserReducer = useSelector((state) => state.currentUserReducer);
+    const { currentUser } = currentUserReducer;
 
     const { navigation } = props;
 
@@ -20,17 +26,19 @@ export default function SettingScreen(props) {
     useEffect(() => {
         // APIから全てのイベント情報を取得してくる
         // 参考記事：https://qiita.com/daishi/items/4423878a1cd7a0ab69eb
-        const f = async () => {
-            setIsLoading(true);
-            await userInfo()
-                .then(response => response.data.response)
-                .then(user => {
-                    setIsLoading(false);
-                    setName(user.name);
-                    setEmail(user.email);
-                }).catch(error => setIsLoading(false))
-        };
-        f();
+
+
+        // const f = async () => {
+        //     setIsLoading(true);
+        //     await userInfo()
+        //         .then(response => response.data.response)
+        //         .then(user => {
+        //             setIsLoading(false);
+        //             setName(user.name);
+        //             setEmail(user.email);
+        //         }).catch(error => setIsLoading(false))
+        // };
+        // f();
     }, []);
 
     const logout = () => {
@@ -52,14 +60,14 @@ export default function SettingScreen(props) {
                         <Card>
                             <CardItem>
                                 <Icon active name="logo-googleplus"/>
-                                <Text>名前：{ name }</Text>
+                                <Text>名前：{ currentUser[0].name }</Text>
                                 <Right>
                                     <Icon name="arrow-forward"/>
                                 </Right>
                             </CardItem>
                             <CardItem>
                                 <Icon active name="logo-googleplus"/>
-                                <Text>Email：{ email }</Text>
+                                <Text>Email：{ currentUser[0].email }</Text>
                                 <Right>
                                     <Icon name="arrow-forward"/>
                                 </Right>
