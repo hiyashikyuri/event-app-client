@@ -1,79 +1,74 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Header, Button, Text, Content, Form, Item, Input, Label } from 'native-base';
 import { ActivityIndicator, StyleSheet, Button as ReactNativeButton } from 'react-native';
-import { signup } from '../shared/auth_service';
+import { login, setAuthData, signup } from '../shared/auth_service';
 
-export default class SignupScreen extends React.Component {
+export default function SignupScreen(props) {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            name: '',
-            email: '',
-            password: '',
-            password_confirmation: '',
-            loading: false,
-            failed: false
-        };
-    }
+    // 必要な変数を定義
+    const [isLoading, setIsLoading] = useState(false);
+    const [isFailed, setIsFailed] = useState(false);
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [password_confirmation, setPasswordConfirmation] = useState('');
 
-    onSubmit() {
-        this.setState({ loading: true });
+    const onSubmit = () => {
+        setIsLoading(true);
         return (
-            signup(this.state.name, this.state.email, this.state.password,this.state.password_confirmation)
+            signup(name, email, password, password_confirmation)
                 .then(response => {
-                    this.setState({ loading: false });
-                    this.props.navigation.navigate('Login');
+                    setIsLoading(false);
+                    props.navigation.navigate('Login');
                 }).catch(data => {
-                this.setState({ loading: false });
+                setIsLoading(false);
+                setIsFailed(true);
             })
         );
     }
 
-    signupButton() {
-        if (this.state.loading) {
+    const signupButton = () => {
+        if (isLoading) {
             return <ActivityIndicator size="small"/>;
         } else {
             return (
-                <Button style={ styles.button } onPress={ () => this.onSubmit() }>
-                    <Text style={ styles.text }>新規登録</Text>
+                <Button style={ styles.button } onPress={ () => onSubmit() }>
+                    <Text style={ styles.text }>ログイン</Text>
                 </Button>
             )
         }
     }
 
-    render() {
-        return (
-            <Container>
-                <Header/>
-                <Content>
-                    { this.state.failed && <Text>新規登録に失敗しました。</Text> }
-                    <Form>
-                        <Item inlineLabel>
-                            <Label>Username</Label>
-                            <Input onChangeText={ (name) => this.setState({ name }) }/>
-                        </Item>
-                        <Item inlineLabel>
-                            <Label>Email</Label>
-                            <Input onChangeText={ (email) => this.setState({ email }) }/>
-                        </Item>
-                        <Item inlineLabel last>
-                            <Label>Password</Label>
-                            <Input onChangeText={ (password) => this.setState({ password }) }/>
-                        </Item>
-                        <Item inlineLabel last>
-                            <Label>Password Confirmation</Label>
-                            <Input
-                                onChangeText={ (password_confirmation) => this.setState({ password_confirmation }) }/>
-                        </Item>
-                    </Form>
-                    { this.signupButton() }
-                    <ReactNativeButton title='ログインする' onPress={ () => this.props.navigation.navigate('Login') }/>
-                    <ReactNativeButton title='説明画面に戻る' onPress={ () => this.props.navigation.navigate('Swipe') }/>
-                </Content>
-            </Container>
-        );
-    }
+    return (
+        <Container>
+            <Header/>
+            <Content>
+                { isFailed && <Text>新規登録に失敗しました。</Text> }
+                <Form>
+                    <Item inlineLabel>
+                        <Label>Username</Label>
+                        <Input onChangeText={ (name) => setName(name) }/>
+                    </Item>
+                    <Item inlineLabel>
+                        <Label>Email</Label>
+                        <Input onChangeText={ (email) => setEmail(email) }/>
+                    </Item>
+                    <Item inlineLabel last>
+                        <Label>Password</Label>
+                        <Input onChangeText={ (password) => setPassword(password) }/>
+                    </Item>
+                    <Item inlineLabel last>
+                        <Label>Password Confirmation</Label>
+                        <Input
+                            onChangeText={ (password_confirmation) => setPasswordConfirmation(password_confirmation) }/>
+                    </Item>
+                </Form>
+                { signupButton() }
+                <ReactNativeButton title='ログインする' onPress={ () => props.navigation.navigate('Login') }/>
+                <ReactNativeButton title='説明画面に戻る' onPress={ () => props.navigation.navigate('Swipe') }/>
+            </Content>
+        </Container>
+    );
 }
 
 const styles = StyleSheet.create({
