@@ -137,5 +137,8 @@ const styles = StyleSheet.create({
         minHeight: 170,
         borderTopWidth: 1,
         borderColor: "rgba(212,211,211, 0.3)"
-    }
+    },
+    footer: {
+        height: '10%'
+    },
 });

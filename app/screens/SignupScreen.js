@@ -2,7 +2,6 @@ import React from 'react';
 import { Container, Header, Button, Text, Content, Form, Item, Input, Label } from 'native-base';
 import { ActivityIndicator, StyleSheet, Button as ReactNativeButton } from 'react-native';
 import { signup } from '../shared/auth_service';
-import { useDispatch, useSelector } from "react-redux";
 
 export default class SignupScreen extends React.Component {
 
