@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 import { ActivityIndicator, StyleSheet, Button as ReactNativeButton } from 'react-native';
 import { Container, Header, Button, Text, Content, Form, Item, Input, Label } from 'native-base';
 import { setAuthData, login } from '../shared/auth_service';
+import { useDispatch } from "react-redux";
+import { addCurrentUser } from "../redux/actions/current_user";
 
 
 export default function LoginScreen(props) {
+
+    const dispatch = useDispatch();
 
     // 必要な変数を定義
     const [isLoading, setIsLoading] = useState(false);
@@ -22,6 +26,8 @@ export default function LoginScreen(props) {
                     const client = response.headers['client'];
                     const uid = response.headers['uid'];
                     if (token && client && uid) {
+                        // userのログイン情報をreduxで管理
+                        dispatch(addCurrentUser(response.data.data))
                         // storageにtoken情報などを追加
                         setAuthData(token, client, uid);
                         setIsFailed(false);

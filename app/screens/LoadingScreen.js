@@ -1,21 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { AppLoading } from 'expo';
-import { setUserData, validateToken, prepareLocalToken, removeLocalToken} from '../shared/auth_service'
-import { useDispatch, useSelector } from "react-redux";
-import { findAll } from "../shared/event_service";
-import { addEvents } from "../redux/actions/events";
+import { validateToken, prepareLocalToken, removeLocalToken} from '../shared/auth_service'
+import { useDispatch } from "react-redux";
 import { addCurrentUser } from "../redux/actions/current_user";
 
 //1 - LOADING SCREEN
 export default function LoadingScreen(props) {
 
     const dispatch = useDispatch();
-    const { navigation } = props;
-
-    // reduxの設定
-    const currentUserReducer = useSelector((state) => state.currentUserReducer);
-    const { currentUser } = currentUserReducer;
-
 
     useEffect(() => checkLocalData(), []);
 
@@ -31,9 +23,8 @@ export default function LoadingScreen(props) {
         await validateToken()
             .then(data => data.data.data)
             .then(data =>  {
+                // userの情報をreduxで管理
                 dispatch(addCurrentUser(data));
-                // 返ってきたuserの情報を保存
-                setUserData(data.id, data.name, data.email)
                 props.navigation.navigate('Home');
             })
             .catch(error => {

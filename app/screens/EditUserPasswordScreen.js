@@ -12,6 +12,7 @@ import {
     userInfo
 } from '../shared/auth_service';
 import FooterTabs from "../components/Footer";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function EditUserPasswordScreen(props) {
 
@@ -29,17 +30,17 @@ export default function EditUserPasswordScreen(props) {
     useEffect(() => {
         // APIから全てのイベント情報を取得してくる
         // 参考記事：https://qiita.com/daishi/items/4423878a1cd7a0ab69eb
-        const f = async () => {
-            setIsLoading(true);
-            await userInfo()
-                .then(response => response.data.response)
-                .then(user => {
-                    setIsLoading(false);
-                    setName(user.name);
-                    setEmail(user.email);
-                }).catch(error => setIsLoading(false))
-        }
-        f();
+        // const f = async () => {
+        //     setIsLoading(true);
+        //     await userInfo()
+        //         .then(response => response.data.response)
+        //         .then(user => {
+        //             setIsLoading(false);
+        //             setName(user.name);
+        //             setEmail(user.email);
+        //         }).catch(error => setIsLoading(false))
+        // }
+        // f();
     }, []);
 
 

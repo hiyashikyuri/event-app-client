@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Button, Text, Thumbnail, Content, View, Card, CardItem, Icon, Right } from 'native-base';
+import { Container, Button, Text, Thumbnail, Content, View, Card, CardItem, Right } from 'native-base';
 import { Button as ReactNativeButton } from 'react-native';
 import { StyleSheet, ScrollView } from 'react-native';
+// native-baseのiconは不具合が多いのでexpoのライブラリ使います
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+
 import { getUserData, removeLocalToken, userInfo } from '../shared/auth_service';
 import FooterTabs from "../components/Footer";
 import { useDispatch, useSelector } from "react-redux";
@@ -59,18 +62,12 @@ export default function SettingScreen(props) {
                     <Content>
                         <Card>
                             <CardItem>
-                                <Icon active name="logo-googleplus"/>
+                                <MaterialIcons name="person" style={ styles.icon } size={ 24 } color="black"/>
                                 <Text>名前：{ currentUser[0].name }</Text>
-                                <Right>
-                                    <Icon name="arrow-forward"/>
-                                </Right>
                             </CardItem>
                             <CardItem>
-                                <Icon active name="logo-googleplus"/>
+                                <MaterialIcons name="email" style={ styles.icon } size={ 24 } color="black"/>
                                 <Text>Email：{ currentUser[0].email }</Text>
-                                <Right>
-                                    <Icon name="arrow-forward"/>
-                                </Right>
                             </CardItem>
                         </Card>
                     </Content>
@@ -90,6 +87,9 @@ export default function SettingScreen(props) {
 }
 
 const styles = StyleSheet.create({
+    icon: {
+        marginRight: 10
+    },
     textInput: {
         height: 60,
         width: 300,

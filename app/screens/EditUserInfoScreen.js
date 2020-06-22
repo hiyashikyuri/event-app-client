@@ -20,24 +20,8 @@ export default function EditUserInfoScreen(props) {
     const [isFailed, setIsFailed] = useState(false);
     const [name, setName] = useState(currentUser[0].name);
     const [email, setEmail] = useState(currentUser[0].email);
-    const [password, setPassword] = useState('');
-    const [password_confirmation, setPasswordConfirmation] = useState('');
 
-    useEffect(() => {
-        // APIから全てのイベント情報を取得してくる
-        // 参考記事：https://qiita.com/daishi/items/4423878a1cd7a0ab69eb
-        const f = async () => {
-            setIsLoading(true);
-            await userInfo()
-                .then(response => response.data.response)
-                .then(user => {
-                    setIsLoading(false);
-                    setName(user.name);
-                    setEmail(user.email);
-                }).catch(error => setIsLoading(false))
-        }
-        f();
-    }, []);
+    useEffect(() => { }, []);
 
     const onSubmit = () => {
         setIsLoading(true);
@@ -46,12 +30,8 @@ export default function EditUserInfoScreen(props) {
                 .then(response => response.data.data)
                 .then(data => {
                     setIsLoading(false);
-                    console.log('--------');
-                    console.log(data);
-                    console.log('--------');
-
+                    // userの情報をreduxで管理
                     dispatch(updateCurrentUser(data));
-                    setUserData(data.id, data.name, data.email);
                     props.navigation.navigate('Setting');
                 }).catch(data => {
                 setIsLoading(false);
