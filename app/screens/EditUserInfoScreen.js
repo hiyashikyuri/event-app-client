@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Header, Button, Text, Content, Form, Item, Input, Label, View } from 'native-base';
-import { ActivityIndicator, StyleSheet, Button as ReactNativeButton } from 'react-native';
-import { getUserData, login, setAuthData, setUserData, signup, update, userInfo } from '../shared/auth_service';
-import FooterTabs from "../components/Footer";
-import { useDispatch, useSelector } from "react-redux";
-import { updateCurrentUser } from "../redux/actions/current_user";
-import { MaterialIcons } from "@expo/vector-icons";
+import { Container, Header, Button, Text, Content, Form, Item, Input, View } from 'native-base';
+import { ActivityIndicator, StyleSheet  } from 'react-native';
+import { update  } from '../shared/auth_service';
+import FooterTabs from '../components/Footer';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateCurrentUser } from '../redux/actions/current_user';
+import { MaterialIcons } from '@expo/vector-icons';
 
 export default function EditUserInfoScreen(props) {
 
@@ -43,7 +43,7 @@ export default function EditUserInfoScreen(props) {
 
     const editButton = () => {
         if (isLoading) {
-            return <ActivityIndicator size="small"/>;
+            return <ActivityIndicator size='small'/>;
         } else {
             return (
                 <Button style={ styles.button } onPress={ () => {　onSubmit()　} }>
@@ -60,11 +60,11 @@ export default function EditUserInfoScreen(props) {
                 { isFailed && <Text>新規登録に失敗しました。</Text> }
                 <Form>
                     <Item inlineLabel>
-                        <MaterialIcons name="person" style={ styles.icon } size={ 24 } color="black"/>
+                        <MaterialIcons name='person' style={ styles.icon } size={ 24 } color='black'/>
                         <Input placeholder='名前' value={ name} onChangeText={ (name) => setName(name) }/>
                     </Item>
                     <Item inlineLabel>
-                        <MaterialIcons name="email" style={ styles.icon } size={ 24 } color="black"/>
+                        <MaterialIcons name='email' style={ styles.icon } size={ 24 } color='black'/>
                         <Input placeholder='Email' value={ email } onChangeText={ (email) => setEmail(email) }/>
                     </Item>
                 </Form>
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     },
     main: {
         height: '90%',
-        backgroundColor: "#eee",
+        backgroundColor: '#eee',
     },
     footer: {
         height: '10%'

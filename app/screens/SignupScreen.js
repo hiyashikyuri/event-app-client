@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Container, Header, Button, Text, Content, Form, Item, Input, Label } from 'native-base';
+import { Container, Header, Button, Text, Content, Form, Item, Input  } from 'native-base';
 import { ActivityIndicator, StyleSheet, Button as ReactNativeButton } from 'react-native';
-import { login, setAuthData, signup } from '../shared/auth_service';
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { signup } from '../shared/auth_service';
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 
 export default function SignupScreen(props) {
 
@@ -30,7 +30,7 @@ export default function SignupScreen(props) {
 
     const signupButton = () => {
         if (isLoading) {
-            return <ActivityIndicator size="small"/>;
+            return <ActivityIndicator size='small'/>;
         } else {
             return (
                 <Button style={ styles.button } onPress={ () => onSubmit() }>
@@ -47,20 +47,25 @@ export default function SignupScreen(props) {
                 { isFailed && <Text>新規登録に失敗しました。</Text> }
                 <Form>
                     <Item inlineLabel>
-                        <MaterialIcons name="person" style={ styles.icon } size={ 24 } color="black"/>
+                        <MaterialIcons name='person' style={ styles.icon } size={ 24 } color='black'/>
                         <Input placeholder='名前' onChangeText={ (name) => setName(name) }/>
                     </Item>
                     <Item inlineLabel>
-                        <MaterialIcons name="email" style={ styles.icon } size={ 24 } color="black"/>
+                        <MaterialIcons name='email' style={ styles.icon } size={ 24 } color='black'/>
                         <Input placeholder='Email' onChangeText={ (email) => setEmail(email) }/>
                     </Item>
                     <Item inlineLabel last>
-                        <Ionicons name="md-key" style={ styles.icon } size={24} color="black" />
-                        <Input placeholder='パスワード' onChangeText={ (password) => setPassword(password) }/>
+                        <Ionicons name='md-key' style={ styles.icon } size={24} color='black' />
+                        <Input
+                            placeholder='パスワード'
+                            secureTextEntry={ true }
+                            onChangeText={ (password) => setPassword(password) }/>
                     </Item>
                     <Item inlineLabel last>
-                        <Ionicons name="md-key" style={ styles.icon } size={24} color="black" />
-                        <Input placeholder='パスワード(確認用)'
+                        <Ionicons name='md-key' style={ styles.icon } size={24} color='black' />
+                        <Input
+                            placeholder='パスワード(確認用)'
+                            secureTextEntry={ true }
                             onChangeText={ (password_confirmation) => setPasswordConfirmation(password_confirmation) }/>
                     </Item>
                 </Form>
@@ -78,7 +83,7 @@ const styles = StyleSheet.create({
     },
     main: {
         height: '90%',
-        backgroundColor: "#eee",
+        backgroundColor: '#eee',
     },
     textInput: {
         height: 60,

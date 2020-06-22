@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Button, Text, Thumbnail, Content, View, Card, CardItem, Right } from 'native-base';
+import React, { useEffect } from 'react';
+import { Container, Button, Text, Thumbnail, Content, View, Card, CardItem  } from 'native-base';
 import { Button as ReactNativeButton } from 'react-native';
 import { StyleSheet, ScrollView } from 'react-native';
 // native-baseのiconは不具合が多いのでexpoのライブラリ使います
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 
-import { getUserData, removeLocalToken, userInfo } from '../shared/auth_service';
-import FooterTabs from "../components/Footer";
-import { useDispatch, useSelector } from "react-redux";
+import { removeLocalToken } from '../shared/auth_service';
+import FooterTabs from '../components/Footer';
+import { useSelector } from 'react-redux';
 
 export default function SettingScreen(props) {
     // reduxの設定
@@ -29,18 +29,18 @@ export default function SettingScreen(props) {
         <Container style={ styles.main }>
             <ScrollView style={ styles.main }>
                 <View style={ { marginTop: 40, alignItems: 'center' } }>
-                    <Thumbnail small source={ { uri: "http://www.bluecode.jp/images/shiro.jpg" } }/>
+                    <Thumbnail small source={ { uri: 'http://www.bluecode.jp/images/shiro.jpg' } }/>
                 </View>
                 <Text style={ { alignSelf: 'center', margin: 20 } }>基本情報</Text>
                 <View style={ { marginTop: 0, width: '100%', alignSelf: 'center' } }>
                     <Content>
                         <Card>
                             <CardItem>
-                                <MaterialIcons name="person" style={ styles.icon } size={ 24 } color="black"/>
+                                <MaterialIcons name='person' style={ styles.icon } size={ 24 } color='black'/>
                                 <Text>名前：{ currentUser[0].name }</Text>
                             </CardItem>
                             <CardItem>
-                                <MaterialIcons name="email" style={ styles.icon } size={ 24 } color="black"/>
+                                <MaterialIcons name='email' style={ styles.icon } size={ 24 } color='black'/>
                                 <Text>Email：{ currentUser[0].email }</Text>
                             </CardItem>
                         </Card>
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
         marginBottom: 'auto',
     },
     main: {
-        backgroundColor: "#eee",
+        backgroundColor: '#eee',
         height: '90%'
     },
     footer: {

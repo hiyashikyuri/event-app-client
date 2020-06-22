@@ -1,18 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Header, Button, Text, Content, Form, Item, Input, Label, View } from 'native-base';
-import { ActivityIndicator, StyleSheet, Button as ReactNativeButton } from 'react-native';
-import {
-    getUserData,
-    login,
-    setAuthData,
-    setUserData,
-    signup,
-    update,
-    updatePassword,
-    userInfo
-} from '../shared/auth_service';
-import FooterTabs from "../components/Footer";
-import { useDispatch, useSelector } from "react-redux";
+import { Container, Header, Button, Text, Content, Form, Item, Input, View } from 'native-base';
+import { ActivityIndicator, StyleSheet  } from 'react-native';
+import { updatePassword } from '../shared/auth_service';
+import FooterTabs from '../components/Footer';
 import { Ionicons } from '@expo/vector-icons';
 export default function EditUserPasswordScreen(props) {
 
@@ -21,28 +11,10 @@ export default function EditUserPasswordScreen(props) {
 
     const [isLoading, setIsLoading] = useState(false);
     const [isFailed, setIsFailed] = useState(false);
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [currentPassword, setcurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [newPasswordConfirmation, setNewPasswordConfirmation] = useState('');
 
-    useEffect(() => {
-        // APIから全てのイベント情報を取得してくる
-        // 参考記事：https://qiita.com/daishi/items/4423878a1cd7a0ab69eb
-        // const f = async () => {
-        //     setIsLoading(true);
-        //     await userInfo()
-        //         .then(response => response.data.response)
-        //         .then(user => {
-        //             setIsLoading(false);
-        //             setName(user.name);
-        //             setEmail(user.email);
-        //         }).catch(error => setIsLoading(false))
-        // }
-        // f();
-    }, []);
-
+    useEffect(() => { }, []);
 
     const onSubmit = () => {
         setIsLoading(true);
@@ -51,9 +23,6 @@ export default function EditUserPasswordScreen(props) {
                 .then(response => response.data.data)
                 .then(data => {
                     setIsLoading(false);
-                    console.log('------------');
-                    console.log(data);
-                    console.log('------------');
                     props.navigation.navigate('Setting');
                 }).catch(data => {
                 setIsLoading(false);
@@ -64,7 +33,7 @@ export default function EditUserPasswordScreen(props) {
 
     const editButton = () => {
         if (isLoading) {
-            return <ActivityIndicator size="small"/>;
+            return <ActivityIndicator size='small'/>;
         } else {
             return (
                 <Button style={ styles.button } onPress={ () => {　onSubmit()　} }>
@@ -81,12 +50,18 @@ export default function EditUserPasswordScreen(props) {
                 { isFailed && <Text>新規登録に失敗しました。</Text> }
                 <Form>
                     <Item inlineLabel>
-                        <Ionicons name="md-key" style={ styles.icon } size={24} color="black" />
-                        <Input placeholder='新しいパスワード' onChangeText={ (password) => setNewPassword(password) }/>
+                        <Ionicons name='md-key' style={ styles.icon } size={24} color='black' />
+                        <Input
+                            placeholder='新しいパスワード'
+                            secureTextEntry={ true }
+                            onChangeText={ (password) => setNewPassword(password) }/>
                     </Item>
                     <Item inlineLabel>
-                        <Ionicons name="md-key" style={ styles.icon } size={24} color="black" />
-                        <Input placeholder='新しいパスワード(確認用)' onChangeText={ (password) => setNewPasswordConfirmation(password) }/>
+                        <Ionicons name='md-key' style={ styles.icon } size={24} color='black' />
+                        <Input
+                            placeholder='新しいパスワード(確認用)'
+                            secureTextEntry={ true }
+                            onChangeText={ (password) => setNewPasswordConfirmation(password) }/>
                     </Item>
                 </Form>
                 { editButton() }
@@ -121,7 +96,7 @@ const styles = StyleSheet.create({
     },
     main: {
         height: '90%',
-        backgroundColor: "#eee",
+        backgroundColor: '#eee',
     },
     footer: {
         height: '10%'

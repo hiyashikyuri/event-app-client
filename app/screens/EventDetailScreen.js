@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import FooterTabs from "../components/Footer";
+import FooterTabs from '../components/Footer';
 import { Container } from 'native-base';
 
 export default function EventDetailScreen(props) {
@@ -31,12 +31,12 @@ const styles = StyleSheet.create({
         fontSize: 30,
         lineHeight: 33,
         fontFamily: 'Helvetica Neue',
-        color: "#333333",
+        color: '#333333',
         padding: 16,
         paddingTop: 16,
         minHeight: 170,
         borderTopWidth: 1,
-        borderColor: "rgba(212,211,211, 0.3)"
+        borderColor: 'rgba(212,211,211, 0.3)'
     },
     main: {
         backgroundColor: '#F5F5F5',

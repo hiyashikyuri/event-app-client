@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { apiPath } from './config';
-import { getAuthorization } from "./auth_service";
+import { getAuthorization } from './auth_service';
 
 export async function findAll() {
     const config = await getAuthorization();

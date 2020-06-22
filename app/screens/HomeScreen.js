@@ -4,9 +4,9 @@ import { FlatList, View, ActivityIndicator } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { addEvents, deleteEvent } from '../redux/actions/events';
 import ListItem from '../components/ListItem';
-import { findAll, remove } from "../shared/event_service";
-import FooterTabs from "../components/Footer";
-import styles from "../styles";
+import { findAll, remove } from '../shared/event_service';
+import FooterTabs from '../components/Footer';
+import styles from '../styles';
 
 export default function HomeScreen(props) {
     const dispatch = useDispatch();

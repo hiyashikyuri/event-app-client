@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Container, Header, Content, Footer, FooterTab, Button, Icon } from 'native-base';
+import React from 'react';
+import { Container, Footer, FooterTab, Button } from 'native-base';
 import { MaterialIcons, AntDesign } from '@expo/vector-icons';
 export default function FooterTabs(route) {
     const { navigation } = route;
@@ -35,9 +35,6 @@ export default function FooterTabs(route) {
                     <Button active={ eventActive } onPress={ () => navigation.navigate('CreateEvent') }>
                         <AntDesign name="plus" size={24} color="black" />
                     </Button>
-                    {/*<Button>
-                            <Icon active name="navigate"/>
-                        </Button>*/ }
                     <Button active={ settingActive } onPress={ () => navigation.navigate('Setting') }>
                         <AntDesign name="setting" size={24} color="black" />
                     </Button>

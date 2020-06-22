@@ -1,19 +1,15 @@
-import {
-    createAppContainer,
-    createSwitchNavigator
-} from 'react-navigation';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-
 import LoadingScreen from './screens/LoadingScreen';
 import HomeScreen from './screens/HomeScreen';
 import CreateEventScreen from './screens/CreateEventScreen'
 import EventDetailScreen from './screens/EventDetailScreen';
 import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
-import SwipeScreen from "./screens/SwipeScreen";
-import SettingScreen from "./screens/SettingScreen";
-import EditUserInfoScreen from "./screens/EditUserInfoScreen";
-import EditUserPasswordScreen from "./screens/EditUserPasswordScreen";
+import SwipeScreen from './screens/SwipeScreen';
+import SettingScreen from './screens/SettingScreen';
+import EditUserInfoScreen from './screens/EditUserInfoScreen';
+import EditUserPasswordScreen from './screens/EditUserPasswordScreen';
 
 const AppStack = createStackNavigator({
         Home: {

@@ -5,7 +5,7 @@ import Swiper from 'react-native-swiper';
 
 export default function SwipeScreen(props) {
     return (
-        <Swiper style={ styles.wrapper } showsButtons={ true }>
+        <Swiper showsButtons={ true }>
             <View style={ styles.slide1 }>
                 <Text style={ styles.text }>First Page</Text>
             </View>
@@ -23,7 +23,6 @@ export default function SwipeScreen(props) {
 }
 
 const styles = StyleSheet.create({
-    wrapper: {},
     slide1: {
         flex: 1,
         justifyContent: 'center',

@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { ActivityIndicator, StyleSheet, Button as ReactNativeButton } from 'react-native';
 import { Container, Header, Button, Text, Content, Form, Item, Input, Label } from 'native-base';
 import { setAuthData, login } from '../shared/auth_service';
-import { useDispatch } from "react-redux";
-import { addCurrentUser } from "../redux/actions/current_user";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { useDispatch } from 'react-redux';
+import { addCurrentUser } from '../redux/actions/current_user';
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 
 
 export default function LoginScreen(props) {
@@ -44,7 +44,7 @@ export default function LoginScreen(props) {
 
     const loginButton = () => {
         if (isLoading) {
-            return <ActivityIndicator size="small"/>;
+            return <ActivityIndicator size='small'/>;
         } else {
             return (
                 <Button style={ styles.button } onPress={ () => onSubmit() }>
@@ -61,16 +61,19 @@ export default function LoginScreen(props) {
                 { isFailed && <Text>ログインに失敗しました。</Text> }
                 <Form>
                     <Item inlineLabel>
-                        <MaterialIcons name="email" style={ styles.icon } size={ 24 } color="black"/>
+                        <MaterialIcons name='email' style={ styles.icon } size={ 24 } color='black'/>
                         <Input placeholder='Email' onChangeText={ (email) => setEmail(email) }/>
                     </Item>
                     <Item inlineLabel last>
-                        <Ionicons name="md-key" style={ styles.icon } size={24} color="black" />
-                        <Input placeholder='パスワード' onChangeText={ (password) => setPassword(password) }/>
+                        <Ionicons name='md-key' style={ styles.icon } size={24} color='black' />
+                        <Input
+                            placeholder='パスワード'
+                            secureTextEntry={ true }
+                            onChangeText={ (password) => setPassword(password) }/>
                     </Item>
                 </Form>
                 { loginButton() }
-                <ReactNativeButton title="会員登録する" onPress={ () => props.navigation.navigate('Signup') }/>
+                <ReactNativeButton title='会員登録する' onPress={ () => props.navigation.navigate('Signup') }/>
             </Content>
         </Container>
     );
@@ -82,7 +85,7 @@ const styles = StyleSheet.create({
     },
     main: {
         height: '90%',
-        backgroundColor: "#eee",
+        backgroundColor: '#eee',
     },
     textInput: {
         height: 60,

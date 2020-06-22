@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { AppLoading } from 'expo';
 import { validateToken, prepareLocalToken, removeLocalToken} from '../shared/auth_service'
-import { useDispatch } from "react-redux";
-import { addCurrentUser } from "../redux/actions/current_user";
+import { useDispatch } from 'react-redux';
+import { addCurrentUser } from '../redux/actions/current_user';
 
 //1 - LOADING SCREEN
 export default function LoadingScreen(props) {
