@@ -4,8 +4,8 @@ import {
 } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
-import LoadingScreen from './screens/LoadingScreen'
-import HomeScreen from './screens/HomeScreen'
+import LoadingScreen from './screens/LoadingScreen';
+import HomeScreen from './screens/HomeScreen';
 import CreateEventScreen from './screens/CreateEventScreen'
 import EventDetailScreen from './screens/EventDetailScreen';
 import LoginScreen from './screens/LoginScreen';
