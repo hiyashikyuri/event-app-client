@@ -5,11 +5,6 @@ import storage from "../shared/storage";
 export default function FooterTabs(route) {
     const { navigation } = route;
 
-    const logout = () => {
-        storage.remove({ key: 'authData' });
-        navigation.navigate('Login');
-    }
-
     // footerのアクティブを制御
     let homeActive, eventActive, userActive = false;
     const routeName = navigation.state.routeName;
@@ -24,7 +19,10 @@ export default function FooterTabs(route) {
             userActive = true;
             break;
         default:
-            homeActive = true;
+            // メイン機能以外はどれもactiveにしない
+            homeActive = false;
+            eventActive = false;
+            userActive = false;
             break;
     }
 

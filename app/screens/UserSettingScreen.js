@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import {
-    Container, Header, Button, Text, Thumbnail, Content, Form, Item, Input, Label, View,
-    Card, CardItem, Icon, Right
-} from 'native-base';
-import { ActivityIndicator, StyleSheet, Button as ReactNativeButton, ScrollView } from 'react-native';
-import { getUserData, login, removeLocalToken, setAuthData, signup } from '../shared/auth_service';
-import { findAll } from "../shared/event_service";
-import { addEvents } from "../redux/actions/events";
+import { Container, Button, Text, Thumbnail, Content, View, Card, CardItem, Icon, Right } from 'native-base';
+import { StyleSheet, ScrollView } from 'react-native';
+import { getUserData, removeLocalToken } from '../shared/auth_service';
 import FooterTabs from "../components/Footer";
 
 export default function UserSettingScreen(props) {
@@ -24,54 +19,21 @@ export default function UserSettingScreen(props) {
     let user = '';
 
     useEffect(() => {
-        async function getData() {
+        // APIから全てのイベント情報を取得してくる
+        // 参考記事：https://qiita.com/daishi/items/4423878a1cd7a0ab69eb
+        const f = async () => {
             setIsLoading(true);
             user = await getUserData();
             setName(user.name);
             setEmail(user.email);
             setName(user.name);
-        }
+        };
+        f();
     }, []);
-
-    // APIから全てのイベント情報を取得してくる
-    /*const getData = async () => {
-        // ユーザー情報はローカルから取得
-        setIsLoading(true);
-        user = await getUserData();
-        setName(user.name);
-        setEmail(user.email);
-        setName(user.name);
-    };*/
-
-    // const onSubmit = () => {
-    //     setIsLoading(true);
-    //     return (
-    //         signup(name, email, password, password_confirmation)
-    //             .then(response => {
-    //                 setIsLoading(false);
-    //                 props.navigation.navigate('Login');
-    //             }).catch(data => {
-    //             setIsLoading(false);
-    //             setIsFailed(true);
-    //         })
-    //     );
-    // }
 
     const logout = () => {
         removeLocalToken();
         navigation.navigate('Login');
-    }
-    const signupButton = () => {
-        if (isLoading) {
-            return <ActivityIndicator size="small"/>;
-        } else {
-            return (
-                <Button style={ styles.button } onPress={ () => {
-                } }>
-                    <Text style={ styles.text }>ログイン</Text>
-                </Button>
-            )
-        }
     }
 
     // 参考にしたデザイン
