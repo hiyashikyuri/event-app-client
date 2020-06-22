@@ -2,28 +2,28 @@ import React, { useState } from 'react';
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableHighlight, View } from 'react-native';
 import { Container } from 'native-base';
 import { useDispatch } from 'react-redux';
-import { Header } from 'react-navigation-stack';
 import { addEvent, updateEvent } from '../redux/actions/events';
 import { edit, save } from "../shared/event_service";
 import FooterTabs from "../components/Footer";
 
-const MAX_LENGTH = 250;
+const MAX_LENGTH = 500;
 
 export default function CreateEventScreen(props) {
     const dispatch = useDispatch();
     const { navigation } = props;
 
+    // イベント情報をpropsの中から取得
     let event = navigation.getParam('event', null);
 
-    //1 - DECLARE VARIABLES
-    const [isSaving, setIsSaving] = useState(false);
+    // 必要な変数を定義
+    const [isLoading, setIsSaving] = useState(false);
     const [id] = useState(event ? event.id : '');
     const [title, setTitle] = useState(event ? event.title : '');
     const [body, setBody] = useState(event ? event.body : '');
 
-    //2 - GET FLATLIST DATA
+    // 保存するためのメソッド
     const onSave = () => {
-        //OPTION 2 - FAKE API
+        // idがあれば修正、なければ新規で追加
         if (id) {
             edit(id, title, body)
                 .then(res => res.data.response)
@@ -31,7 +31,7 @@ export default function CreateEventScreen(props) {
                     dispatch(updateEvent(data));
                     navigation.goBack();
                 })
-                .catch(error => alert(error.message))
+                .catch(error => alert(error.message));
         } else {
             save(title, body)
                 .then(res => res.data.response)
@@ -39,11 +39,11 @@ export default function CreateEventScreen(props) {
                     dispatch(addEvent(data));
                     navigation.goBack();
                 })
-                .catch(error => alert(error.message))
+                .catch(error => alert(error.message));
         }
     }
 
-    //4 - RENDER
+    // View部分
     let disabled = (title.length > 0 && body.length > 0) ? false : true;
     return (
         <KeyboardAvoidingView style={styles.wrapper}  behavior="padding">
@@ -63,7 +63,6 @@ export default function CreateEventScreen(props) {
                         maxLength={ MAX_LENGTH }
                         value={ body }/>
                 </View>
-
                 <View style={ styles.buttonContainer }>
                     <View style={ { flex: 1, justifyContent: "center" } }>
                         <Text
@@ -94,38 +93,6 @@ const styles = StyleSheet.create({
         height: '90%',
         backgroundColor: '#F5F5F5'
     },
-    activityIndicatorContainer: {
-        backgroundColor: "#fff",
-        alignItems: 'center',
-        justifyContent: 'center',
-        flex: 1,
-    },
-    floatingButton: {
-        backgroundColor: '#6B9EFA',
-        borderColor: '#6B9EFA',
-        height: 55,
-        width: 55,
-        borderRadius: 55 / 2,
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: 'absolute',
-        bottom: 80,
-        right: 15,
-        shadowColor: "#000000",
-        shadowOpacity: 0.5,
-        shadowRadius: 2,
-        shadowOffset: {
-            height: 1,
-            width: 0
-        }
-    },
-    main: {
-        height: '90%'
-    },
-    footer: {
-        height: '10%'
-    },
-    /* CreateEvent */
     flex: {
         flex: 1
     },
