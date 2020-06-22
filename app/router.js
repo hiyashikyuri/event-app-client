@@ -11,6 +11,7 @@ import EventDetailScreen from './screens/EventDetailScreen';
 import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
 import SwipeScreen from "./screens/SwipeScreen";
+import UserSettingScreen from "./screens/UserSettingScreen";
 
 const AppStack = createStackNavigator({
         Home: {
@@ -29,6 +30,12 @@ const AppStack = createStackNavigator({
             screen: EventDetailScreen,
             navigationOptions: ({ navigation }) => ({
                 title: `イベント詳細`,
+            })
+        },
+        User: {
+            screen: UserSettingScreen,
+            navigationOptions: ({ navigation }) => ({
+                title: `ユーザー設定`,
             })
         }
     }

@@ -79,7 +79,6 @@ const styles = StyleSheet.create({
         borderRadius: 8,
     },
     button: {
-
         margin: 30
     },
     text: {

@@ -11,7 +11,7 @@ export default function FooterTabs(route) {
     }
 
     // footerのアクティブを制御
-    let homeActive, eventActive = false;
+    let homeActive, eventActive, userActive = false;
     const routeName = navigation.state.routeName;
     switch (routeName) {
         case 'Home':
@@ -19,6 +19,9 @@ export default function FooterTabs(route) {
             break;
         case 'CreateEvent':
             eventActive = true;
+            break;
+        case 'User':
+            userActive = true;
             break;
         default:
             homeActive = true;
@@ -38,7 +41,7 @@ export default function FooterTabs(route) {
                     {/*<Button>
                             <Icon active name="navigate"/>
                         </Button>*/ }
-                    <Button onPress={ () => logout() }>
+                    <Button active={ userActive } onPress={ () => navigation.navigate('User') }>
                         <Icon name="person"/>
                     </Button>
                 </FooterTab>
