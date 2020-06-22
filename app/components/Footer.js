@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Header, Content, Footer, FooterTab, Button, Icon } from 'native-base';
-import storage from "../shared/storage";
-
+import { MaterialIcons, AntDesign } from '@expo/vector-icons';
 export default function FooterTabs(route) {
     const { navigation } = route;
 
@@ -31,16 +30,16 @@ export default function FooterTabs(route) {
             <Footer>
                 <FooterTab>
                     <Button active={ homeActive } onPress={ () => navigation.navigate('Home') }>
-                        <Icon name="home"/>
+                        <MaterialIcons name="home" size={24} color="black" />
                     </Button>
                     <Button active={ eventActive } onPress={ () => navigation.navigate('CreateEvent') }>
-                        <Icon name="camera"/>
+                        <AntDesign name="plus" size={24} color="black" />
                     </Button>
                     {/*<Button>
                             <Icon active name="navigate"/>
                         </Button>*/ }
                     <Button active={ settingActive } onPress={ () => navigation.navigate('Setting') }>
-                        <Icon name="person"/>
+                        <AntDesign name="setting" size={24} color="black" />
                     </Button>
                 </FooterTab>
             </Footer>

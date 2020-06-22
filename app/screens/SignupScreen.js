@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Container, Header, Button, Text, Content, Form, Item, Input, Label } from 'native-base';
 import { ActivityIndicator, StyleSheet, Button as ReactNativeButton } from 'react-native';
 import { login, setAuthData, signup } from '../shared/auth_service';
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 export default function SignupScreen(props) {
 
@@ -33,7 +34,7 @@ export default function SignupScreen(props) {
         } else {
             return (
                 <Button style={ styles.button } onPress={ () => onSubmit() }>
-                    <Text style={ styles.text }>ログイン</Text>
+                    <Text style={ styles.text }>新規登録</Text>
                 </Button>
             )
         }
@@ -42,24 +43,24 @@ export default function SignupScreen(props) {
     return (
         <Container>
             <Header/>
-            <Content>
+            <Content　style={ styles.main }>
                 { isFailed && <Text>新規登録に失敗しました。</Text> }
                 <Form>
                     <Item inlineLabel>
-                        <Label>Username</Label>
-                        <Input onChangeText={ (name) => setName(name) }/>
+                        <MaterialIcons name="person" style={ styles.icon } size={ 24 } color="black"/>
+                        <Input placeholder='名前' onChangeText={ (name) => setName(name) }/>
                     </Item>
                     <Item inlineLabel>
-                        <Label>Email</Label>
-                        <Input onChangeText={ (email) => setEmail(email) }/>
+                        <MaterialIcons name="email" style={ styles.icon } size={ 24 } color="black"/>
+                        <Input placeholder='Email' onChangeText={ (email) => setEmail(email) }/>
                     </Item>
                     <Item inlineLabel last>
-                        <Label>Password</Label>
-                        <Input onChangeText={ (password) => setPassword(password) }/>
+                        <Ionicons name="md-key" style={ styles.icon } size={24} color="black" />
+                        <Input placeholder='パスワード' onChangeText={ (password) => setPassword(password) }/>
                     </Item>
                     <Item inlineLabel last>
-                        <Label>Password Confirmation</Label>
-                        <Input
+                        <Ionicons name="md-key" style={ styles.icon } size={24} color="black" />
+                        <Input placeholder='パスワード(確認用)'
                             onChangeText={ (password_confirmation) => setPasswordConfirmation(password_confirmation) }/>
                     </Item>
                 </Form>
@@ -72,6 +73,13 @@ export default function SignupScreen(props) {
 }
 
 const styles = StyleSheet.create({
+    icon: {
+        marginRight: 10
+    },
+    main: {
+        height: '90%',
+        backgroundColor: "#eee",
+    },
     textInput: {
         height: 60,
         width: 300,

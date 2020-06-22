@@ -13,7 +13,7 @@ import {
 } from '../shared/auth_service';
 import FooterTabs from "../components/Footer";
 import { useDispatch, useSelector } from "react-redux";
-
+import { Ionicons } from '@expo/vector-icons';
 export default function EditUserPasswordScreen(props) {
 
     // 必要な変数を定義
@@ -81,12 +81,12 @@ export default function EditUserPasswordScreen(props) {
                 { isFailed && <Text>新規登録に失敗しました。</Text> }
                 <Form>
                     <Item inlineLabel>
-                        <Label>新しいパスワード</Label>
-                        <Input onChangeText={ (password) => setNewPassword(password) }/>
+                        <Ionicons name="md-key" style={ styles.icon } size={24} color="black" />
+                        <Input placeholder='新しいパスワード' onChangeText={ (password) => setNewPassword(password) }/>
                     </Item>
                     <Item inlineLabel>
-                        <Label>新しいパスワード(確認)</Label>
-                        <Input onChangeText={ (password) => setNewPasswordConfirmation(password) }/>
+                        <Ionicons name="md-key" style={ styles.icon } size={24} color="black" />
+                        <Input placeholder='新しいパスワード(確認用)' onChangeText={ (password) => setNewPasswordConfirmation(password) }/>
                     </Item>
                 </Form>
                 { editButton() }
@@ -99,6 +99,9 @@ export default function EditUserPasswordScreen(props) {
 }
 
 const styles = StyleSheet.create({
+    icon: {
+        marginRight: 10
+    },
     textInput: {
         height: 60,
         width: 300,
@@ -117,7 +120,8 @@ const styles = StyleSheet.create({
         marginBottom: 'auto',
     },
     main: {
-        height: '90%'
+        height: '90%',
+        backgroundColor: "#eee",
     },
     footer: {
         height: '10%'

@@ -5,6 +5,7 @@ import { getUserData, login, setAuthData, setUserData, signup, update, userInfo 
 import FooterTabs from "../components/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { updateCurrentUser } from "../redux/actions/current_user";
+import { MaterialIcons } from "@expo/vector-icons";
 
 export default function EditUserInfoScreen(props) {
 
@@ -59,12 +60,12 @@ export default function EditUserInfoScreen(props) {
                 { isFailed && <Text>新規登録に失敗しました。</Text> }
                 <Form>
                     <Item inlineLabel>
-                        <Label>Username</Label>
-                        <Input value={ name} onChangeText={ (name) => setName(name) }/>
+                        <MaterialIcons name="person" style={ styles.icon } size={ 24 } color="black"/>
+                        <Input placeholder='名前' value={ name} onChangeText={ (name) => setName(name) }/>
                     </Item>
                     <Item inlineLabel>
-                        <Label>Email</Label>
-                        <Input value={ email } onChangeText={ (email) => setEmail(email) }/>
+                        <MaterialIcons name="email" style={ styles.icon } size={ 24 } color="black"/>
+                        <Input placeholder='Email' value={ email } onChangeText={ (email) => setEmail(email) }/>
                     </Item>
                 </Form>
                 { editButton() }
@@ -77,6 +78,9 @@ export default function EditUserInfoScreen(props) {
 }
 
 const styles = StyleSheet.create({
+    icon: {
+        marginRight: 10
+    },
     textInput: {
         height: 60,
         width: 300,
@@ -95,7 +99,8 @@ const styles = StyleSheet.create({
         marginBottom: 'auto',
     },
     main: {
-        height: '90%'
+        height: '90%',
+        backgroundColor: "#eee",
     },
     footer: {
         height: '10%'

@@ -10,39 +10,13 @@ import FooterTabs from "../components/Footer";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function SettingScreen(props) {
-
-    const dispatch = useDispatch();
     // reduxの設定
     const currentUserReducer = useSelector((state) => state.currentUserReducer);
     const { currentUser } = currentUserReducer;
 
     const { navigation } = props;
 
-    // 必要な変数を定義
-    const [isLoading, setIsLoading] = useState(false);
-    const [isFailed, setIsFailed] = useState(false);
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [password_confirmation, setPasswordConfirmation] = useState('');
-
-    useEffect(() => {
-        // APIから全てのイベント情報を取得してくる
-        // 参考記事：https://qiita.com/daishi/items/4423878a1cd7a0ab69eb
-
-
-        // const f = async () => {
-        //     setIsLoading(true);
-        //     await userInfo()
-        //         .then(response => response.data.response)
-        //         .then(user => {
-        //             setIsLoading(false);
-        //             setName(user.name);
-        //             setEmail(user.email);
-        //         }).catch(error => setIsLoading(false))
-        // };
-        // f();
-    }, []);
+    useEffect(() => { }, []);
 
     const logout = () => {
         removeLocalToken();
@@ -52,7 +26,7 @@ export default function SettingScreen(props) {
     // 参考にしたデザイン
     // https://qiita.com/zaburo/items/1cf1f987d3eb09146753
     return (
-        <Container style={ { flex: 1, backgroundColor: "#eee" } }>
+        <Container style={ styles.main }>
             <ScrollView style={ styles.main }>
                 <View style={ { marginTop: 40, alignItems: 'center' } }>
                     <Thumbnail small source={ { uri: "http://www.bluecode.jp/images/shiro.jpg" } }/>
@@ -108,6 +82,7 @@ const styles = StyleSheet.create({
         marginBottom: 'auto',
     },
     main: {
+        backgroundColor: "#eee",
         height: '90%'
     },
     footer: {

@@ -4,6 +4,7 @@ import { Container, Header, Button, Text, Content, Form, Item, Input, Label } fr
 import { setAuthData, login } from '../shared/auth_service';
 import { useDispatch } from "react-redux";
 import { addCurrentUser } from "../redux/actions/current_user";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 
 export default function LoginScreen(props) {
@@ -56,16 +57,16 @@ export default function LoginScreen(props) {
     return (
         <Container>
             <Header/>
-            <Content>
+            <Content style={ styles.main }>
                 { isFailed && <Text>ログインに失敗しました。</Text> }
                 <Form>
                     <Item inlineLabel>
-                        <Label>Email</Label>
-                        <Input onChangeText={ (email) => setEmail(email) }/>
+                        <MaterialIcons name="email" style={ styles.icon } size={ 24 } color="black"/>
+                        <Input placeholder='Email' onChangeText={ (email) => setEmail(email) }/>
                     </Item>
                     <Item inlineLabel last>
-                        <Label>Password</Label>
-                        <Input onChangeText={ (password) => setPassword(password) }/>
+                        <Ionicons name="md-key" style={ styles.icon } size={24} color="black" />
+                        <Input placeholder='パスワード' onChangeText={ (password) => setPassword(password) }/>
                     </Item>
                 </Form>
                 { loginButton() }
@@ -76,6 +77,13 @@ export default function LoginScreen(props) {
 }
 
 const styles = StyleSheet.create({
+    icon: {
+        marginRight: 10
+    },
+    main: {
+        height: '90%',
+        backgroundColor: "#eee",
+    },
     textInput: {
         height: 60,
         width: 300,
