@@ -13,6 +13,7 @@ import SignupScreen from './screens/SignupScreen';
 import SwipeScreen from "./screens/SwipeScreen";
 import SettingScreen from "./screens/SettingScreen";
 import EditUserInfoScreen from "./screens/EditUserInfoScreen";
+import EditUserPasswordScreen from "./screens/EditUserPasswordScreen";
 
 const AppStack = createStackNavigator({
         Home: {
@@ -43,6 +44,12 @@ const AppStack = createStackNavigator({
             screen: EditUserInfoScreen,
             navigationOptions: ({ navigation }) => ({
                 title: `ユーザー情報編集`,
+            })
+        },
+        EditUserPassword: {
+            screen: EditUserPasswordScreen,
+            navigationOptions: ({ navigation }) => ({
+                title: `パスワード編集`,
             })
         },
     }

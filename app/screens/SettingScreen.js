@@ -28,7 +28,7 @@ export default function SettingScreen(props) {
                     setIsLoading(false);
                     setName(user.name);
                     setEmail(user.email);
-            }).catch(error => setIsLoading(false))
+                }).catch(error => setIsLoading(false))
         };
         f();
     }, []);
@@ -70,7 +70,7 @@ export default function SettingScreen(props) {
                 <Button style={ styles.button } onPress={ () => navigation.navigate('EditUserInfo') }>
                     <Text style={ styles.text }>アカウント情報編集</Text>
                 </Button>
-                <Button style={ styles.button } >
+                <Button style={ styles.button } onPress={ () => navigation.navigate('EditUserPassword') }>
                     <Text style={ styles.text }>パスワード変更</Text>
                 </Button>
                 <ReactNativeButton title='ログアウト' onPress={ () => logout() }/>

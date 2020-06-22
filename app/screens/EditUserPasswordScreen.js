@@ -1,10 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Header, Button, Text, Content, Form, Item, Input, Label, View } from 'native-base';
 import { ActivityIndicator, StyleSheet, Button as ReactNativeButton } from 'react-native';
-import { getUserData, login, setAuthData, setUserData, signup, update, userInfo } from '../shared/auth_service';
+import {
+    getUserData,
+    login,
+    setAuthData,
+    setUserData,
+    signup,
+    update,
+    updatePassword,
+    userInfo
+} from '../shared/auth_service';
 import FooterTabs from "../components/Footer";
 
-export default function EditUserInfoScreen(props) {
+export default function EditUserPasswordScreen(props) {
 
     // 必要な変数を定義
     const {navigation} = props;
@@ -13,8 +22,9 @@ export default function EditUserInfoScreen(props) {
     const [isFailed, setIsFailed] = useState(false);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [password_confirmation, setPasswordConfirmation] = useState('');
+    const [currentPassword, setcurrentPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
+    const [newPasswordConfirmation, setNewPasswordConfirmation] = useState('');
 
     useEffect(() => {
         // APIから全てのイベント情報を取得してくる
@@ -32,14 +42,17 @@ export default function EditUserInfoScreen(props) {
         f();
     }, []);
 
+
     const onSubmit = () => {
         setIsLoading(true);
         return (
-            update(name, email)
+            updatePassword(newPassword, newPasswordConfirmation)
                 .then(response => response.data.data)
                 .then(data => {
                     setIsLoading(false);
-                    setUserData(data.id, data.name, data.email);
+                    console.log('------------');
+                    console.log(data);
+                    console.log('------------');
                     props.navigation.navigate('Setting');
                 }).catch(data => {
                 setIsLoading(false);
@@ -67,12 +80,12 @@ export default function EditUserInfoScreen(props) {
                 { isFailed && <Text>新規登録に失敗しました。</Text> }
                 <Form>
                     <Item inlineLabel>
-                        <Label>Username</Label>
-                        <Input value={ name } onChangeText={ (name) => setName(name) }/>
+                        <Label>新しいパスワード</Label>
+                        <Input onChangeText={ (password) => setNewPassword(password) }/>
                     </Item>
                     <Item inlineLabel>
-                        <Label>Email</Label>
-                        <Input value={ email } onChangeText={ (email) => setEmail(email) }/>
+                        <Label>新しいパスワード(確認)</Label>
+                        <Input onChangeText={ (password) => setNewPasswordConfirmation(password) }/>
                     </Item>
                 </Form>
                 { editButton() }

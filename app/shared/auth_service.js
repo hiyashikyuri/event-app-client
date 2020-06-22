@@ -103,11 +103,11 @@ export async function update(name, email) {
     }, config);
 }
 
-export async function updatePassword(currentPassword, newPassword) {
+export async function updatePassword(newPassword, newPasswordConfirmation) {
     const config = await getAuthorization();
     return await axios.put(`${ apiAuthPath }password`, {
-        current_password: currentPassword,
-        password_confirmation: newPassword
+        password: newPassword,
+        password_confirmation: newPasswordConfirmation
     }, config);
 }
 
