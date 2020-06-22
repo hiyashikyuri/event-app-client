@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Button, Text, Thumbnail, Content, View, Card, CardItem, Icon, Right } from 'native-base';
+import { Button as ReactNativeButton } from 'react-native';
 import { StyleSheet, ScrollView } from 'react-native';
-import { getUserData, removeLocalToken } from '../shared/auth_service';
+import { getUserData, removeLocalToken, userInfo } from '../shared/auth_service';
 import FooterTabs from "../components/Footer";
 
-export default function UserSettingScreen(props) {
+export default function SettingScreen(props) {
 
     const { navigation } = props;
 
@@ -16,17 +17,18 @@ export default function UserSettingScreen(props) {
     const [password, setPassword] = useState('');
     const [password_confirmation, setPasswordConfirmation] = useState('');
 
-    let user = '';
-
     useEffect(() => {
         // APIから全てのイベント情報を取得してくる
         // 参考記事：https://qiita.com/daishi/items/4423878a1cd7a0ab69eb
         const f = async () => {
             setIsLoading(true);
-            user = await getUserData();
-            setName(user.name);
-            setEmail(user.email);
-            setName(user.name);
+            await userInfo()
+                .then(response => response.data.response)
+                .then(user => {
+                    setIsLoading(false);
+                    setName(user.name);
+                    setEmail(user.email);
+            }).catch(error => setIsLoading(false))
         };
         f();
     }, []);
@@ -65,9 +67,13 @@ export default function UserSettingScreen(props) {
                         </Card>
                     </Content>
                 </View>
-                <Button style={ styles.button } onPress={ () => logout() }>
-                    <Text style={ styles.text }>ログアウト</Text>
+                <Button style={ styles.button } onPress={ () => navigation.navigate('EditUserInfo') }>
+                    <Text style={ styles.text }>アカウント情報編集</Text>
                 </Button>
+                <Button style={ styles.button } >
+                    <Text style={ styles.text }>パスワード変更</Text>
+                </Button>
+                <ReactNativeButton title='ログアウト' onPress={ () => logout() }/>
             </ScrollView>
             <View style={ styles.footer }>
                 <FooterTabs navigation={ navigation }/>

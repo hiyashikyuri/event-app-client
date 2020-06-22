@@ -6,7 +6,7 @@ export default function FooterTabs(route) {
     const { navigation } = route;
 
     // footerのアクティブを制御
-    let homeActive, eventActive, userActive = false;
+    let homeActive, eventActive, settingActive = false;
     const routeName = navigation.state.routeName;
     switch (routeName) {
         case 'Home':
@@ -15,14 +15,14 @@ export default function FooterTabs(route) {
         case 'CreateEvent':
             eventActive = true;
             break;
-        case 'User':
-            userActive = true;
+        case 'Setting':
+            settingActive = true;
             break;
         default:
             // メイン機能以外はどれもactiveにしない
             homeActive = false;
             eventActive = false;
-            userActive = false;
+            settingActive = false;
             break;
     }
 
@@ -39,7 +39,7 @@ export default function FooterTabs(route) {
                     {/*<Button>
                             <Icon active name="navigate"/>
                         </Button>*/ }
-                    <Button active={ userActive } onPress={ () => navigation.navigate('User') }>
+                    <Button active={ settingActive } onPress={ () => navigation.navigate('Setting') }>
                         <Icon name="person"/>
                     </Button>
                 </FooterTab>

@@ -51,14 +51,14 @@ export default function CreateEventScreen(props) {
                 <View style={ styles.flex }>
                     <TextInput
                         onChangeText={ (text) => setTitle(text) }
-                        placeholder={ 'title' }
+                        placeholder={ 'イベント名' }
                         autoFocus={ true }
                         style={ [styles.author] }
                         value={ title }/>
                     <TextInput
                         multiline={ true }
                         onChangeText={ (text) => setBody(text) }
-                        placeholder={ "Body" }
+                        placeholder={ 'イベントの詳細' }
                         style={ [styles.text] }
                         maxLength={ MAX_LENGTH }
                         value={ body }/>

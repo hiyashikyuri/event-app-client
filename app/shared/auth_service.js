@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { apiAuthPath } from './config';
+import { apiAuthPath, apiPath } from './config';
 import storage from './storage';
 
 /* getter/setter */
@@ -76,6 +76,10 @@ export function removeLocalToken() {
 
 /* tokenの確認などを行うメソッド */
 
+export async function userInfo() {
+    const config = await getAuthorization();
+    return await axios.get(`${ apiPath }users/user_info_by_token`, config);
+}
 
 /* サインインなどを行うところ */
 export async function login(email, password) {
@@ -89,6 +93,22 @@ export async function signup(name, email, password, password_confirmation) {
         password: password,
         password_confirmation: password_confirmation
     });
+}
+
+export async function update(name, email) {
+    const config = await getAuthorization();
+    return await axios.put(`${ apiAuthPath }`, {
+        name: name,
+        email: email
+    }, config);
+}
+
+export async function updatePassword(currentPassword, newPassword) {
+    const config = await getAuthorization();
+    return await axios.put(`${ apiAuthPath }password`, {
+        current_password: currentPassword,
+        password_confirmation: newPassword
+    }, config);
 }
 
 /* サインインなどを行うところ */
