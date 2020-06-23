@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button as ReactNativeButton, ScrollView, StyleSheet, Text, View } from 'react-native';
 import FooterTabs from '../components/Footer';
-import { Button, Card, CardItem, Container, Content, Thumbnail } from 'native-base';
+import { Button, Card, CardItem, Container, Content, Thumbnail,Left, Right } from 'native-base';
 import { MaterialIcons, FontAwesome } from "@expo/vector-icons";
 
 
@@ -18,9 +18,6 @@ export default function EventDetailScreen(props) {
     return (
         <Container style={ styles.wrapper }>
             <ScrollView style={ styles.main }>
-                {/*<View style={ { marginTop: 40, alignItems: 'center' } }>*/ }
-                {/*    <Thumbnail small source={ { uri: 'http://www.bluecode.jp/images/shiro.jpg' } }/>*/ }
-                {/*</View>*/ }
                 <View style={ [styles.contentHeader] }>
                     <View style={ [styles.content, { flexDirection: 'row', flexWrap: 'wrap' }] }>
                         <MaterialIcons style={{ marginRight: 20 }} name="event-note" size={ 40 } color="white"/>
@@ -29,26 +26,25 @@ export default function EventDetailScreen(props) {
 
                 </View>
                 <View>
-                    {/* TODO, event作成したuserの名前を表示する */}
-                    <Text style={ styles.user }>大久保</Text>
+                    <Text style={ styles.user }>
+                        <Text>
+                            <MaterialIcons name='person' style={ styles.icon } size={ 12 } color='black'/>
+                        </Text>
+                        <Text>
+                            { event.user.name }
+                        </Text>
+                    </Text>
                 </View>
-
 
                 <Text style={ styles.body }>{ event.body }</Text>
-                {/* TODO, addressを表示する */}
-                {/*<Text style={ styles.address }>{ event.address }</Text>*/}
-                <View style={ { flexDirection: 'row', flexWrap: 'wrap' } }>
-                    <FontAwesome style={{ marginRight: 10 }} name="map-marker" size={24} color="black" />
-                    <Text style={ styles.address }>愛知県名古屋市中村区井深町1-1</Text>
-                </View>
 
+                <Text style={ styles.address }>
+                    <Text>
+                        <FontAwesome name="map-marker" size={16} color="black" />
+                    </Text>
+                    <Text>愛知県名古屋市中村区井深町1-1</Text>
+                </Text>
 
-                {/*<Button style={ styles.button } onPress={ () => navigation.navigate('EditUserInfo') }>*/ }
-                {/*</Button>*/ }
-                {/*<Button style={ styles.button } onPress={ () => navigation.navigate('EditUserPassword') }>*/ }
-                {/*    <Text style={ styles.text }>パスワード変更</Text>*/ }
-                {/*</Button>*/ }
-                {/*<ReactNativeButton title='ログアウト' onPress={ () => logout() }/>*/ }
             </ScrollView>
             <View style={ styles.footer }>
                 <FooterTabs navigation={ navigation }/>
@@ -105,8 +101,8 @@ const styles = StyleSheet.create({
         lineHeight: 18
     },
     address: {
-        marginTop: 'auto',
-        marginBottom: 'auto',
+        padding: 20,
+        lineHeight: 18
     },
     user: {
         marginTop: 10,

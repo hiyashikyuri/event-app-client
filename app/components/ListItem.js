@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Animated, TouchableOpacity } from 'react-native
 
 import { RectButton } from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
+import { MaterialIcons } from "@expo/vector-icons";
 
 let colours = ['#9DD6EB', '#97CAE5', '#92BBD9'];
 
@@ -42,7 +43,6 @@ export default function ListItem({ item, index, navigation, onDetail, onDelete, 
         );
     };
 
-    //Returns a colour based on the index
     function random() {
         if (index % 2 === 0) { //check if its an even number
             return colours[0];
@@ -64,9 +64,15 @@ export default function ListItem({ item, index, navigation, onDetail, onDelete, 
                     <Text style={ styles.quote }>
                         { item.title }
                     </Text>
-                    <Text style={ styles.author }>
-                        { item.body }
+                    <Text style={ styles.user }>
+                        <Text>
+                            <MaterialIcons name='person' style={ styles.icon } size={ 12 } color='white'/>
+                        </Text>
+                        <Text>
+                            { item.user.name }
+                        </Text>
                     </Text>
+
                 </TouchableOpacity>
             </View>
         </Swipeable>
@@ -83,7 +89,12 @@ const styles = StyleSheet.create({
     container: {
         padding: 10
     },
-    author: {
+    icon: {
+        textAlign: 'right'
+    },
+    user: {
+        flex: 1,
+        flexDirection: 'row',
         marginTop: 25,
         marginBottom: 10,
         fontFamily: 'HelveticaNeue-Medium',

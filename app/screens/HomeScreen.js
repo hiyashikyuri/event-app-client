@@ -26,7 +26,7 @@ export default function HomeScreen(props) {
         setIsLoading(true);
         findAll()
             .then((res) => {
-                dispatch(addEvents(res.data.response))
+                dispatch(addEvents(res.data.response));
             })
             .catch(error => alert(error.message))
             .finally(() => setIsLoading(false));
