@@ -3,6 +3,7 @@ import { Button as ReactNativeButton, ScrollView, StyleSheet, Text, View } from 
 import FooterTabs from '../components/Footer';
 import { Button, Card, CardItem, Container, Content, Thumbnail,Left, Right } from 'native-base';
 import { MaterialIcons, FontAwesome } from "@expo/vector-icons";
+import Map from "../components/Map";
 
 
 export default function EventDetailScreen(props) {
@@ -44,6 +45,10 @@ export default function EventDetailScreen(props) {
                     </Text>
                     <Text>{ event.address }</Text>
                 </Text>
+
+                <View>
+                    <Map/>
+                </View>
 
             </ScrollView>
             <View style={ styles.footer }>
