@@ -42,7 +42,7 @@ export default function EventDetailScreen(props) {
                     <Text>
                         <FontAwesome name="map-marker" size={16} color="black" />
                     </Text>
-                    <Text>愛知県名古屋市中村区井深町1-1</Text>
+                    <Text>{ event.address }</Text>
                 </Text>
 
             </ScrollView>

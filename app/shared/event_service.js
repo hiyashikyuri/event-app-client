@@ -7,15 +7,15 @@ export async function findAll() {
     return await axios.get(`${ apiPath }events`, config);
 }
 
-export async function save(title, body) {
+export async function save(title, body, address) {
     const config = await getAuthorization();
-    const event = { title: title, body: body };
+    const event = { title: title, body: body, address: address };
     return await axios.post(`${ apiPath }events/`, { event }, config);
 }
 
-export async function edit(id, title, body) {
+export async function edit(id, title, body, address) {
     const config = await getAuthorization();
-    const event = { id: id, title: title, body: body };
+    const event = { id: id, title: title, body: body, address: address };
     return await axios.put(`${apiPath}events/${id}`, { event }, config)
 }
 

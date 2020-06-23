@@ -20,12 +20,13 @@ export default function CreateEventScreen(props) {
     const [id] = useState(event ? event.id : '');
     const [title, setTitle] = useState(event ? event.title : '');
     const [body, setBody] = useState(event ? event.body : '');
+    const [address, setAddress] = useState(event ? event.address : '');
 
     // 保存するためのメソッド
     const onSave = () => {
         // idがあれば修正、なければ新規で追加
         if (id) {
-            edit(id, title, body)
+            edit(id, title, body, address)
                 .then(res => res.data.response)
                 .then((data) => {
                     dispatch(updateEvent(data));
@@ -33,7 +34,7 @@ export default function CreateEventScreen(props) {
                 })
                 .catch(error => alert(error.message));
         } else {
-            save(title, body)
+            save(title, body, address)
                 .then(res => res.data.response)
                 .then((data) => {
                     dispatch(addEvent(data));
@@ -55,6 +56,12 @@ export default function CreateEventScreen(props) {
                         autoFocus={ true }
                         style={ [styles.author] }
                         value={ title }/>
+                    <TextInput
+                        multiline={ false }
+                        onChangeText={ (text) => setAddress(text) }
+                        placeholder={ '住所' }
+                        style={ [styles.address] }
+                        value={ address }/>
                     <TextInput
                         multiline={ true }
                         onChangeText={ (text) => setBody(text) }
@@ -123,7 +130,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         lineHeight: 22,
         fontFamily: 'Helvetica Neue',
-        height: 80,
+        minHeight: '15%',
         padding: 16,
         backgroundColor: 'white',
     },
@@ -134,7 +141,17 @@ const styles = StyleSheet.create({
         color: '#333333',
         padding: 16,
         paddingTop: 16,
-        minHeight: 170,
+        minHeight: '70%',
+        borderTopWidth: 1,
+        borderColor: 'rgba(212,211,211, 0.3)'
+    },
+    address: {
+        fontSize: 20,
+        lineHeight: 22,
+        fontFamily: 'Helvetica Neue',
+        color: '#333333',
+        minHeight: '15%',
+        padding: 16,
         borderTopWidth: 1,
         borderColor: 'rgba(212,211,211, 0.3)'
     },
