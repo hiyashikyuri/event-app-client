@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
         margin: 30
     },
     text: {
+        color: '#fff',
         marginLeft: 'auto',
         marginRight: 'auto',
         marginTop: 'auto',

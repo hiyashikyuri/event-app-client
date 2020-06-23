@@ -76,10 +76,10 @@ export function removeLocalToken() {
 
 /* tokenの確認などを行うメソッド */
 
-export async function userInfo() {
+/*export async function userInfo() {
     const config = await getAuthorization();
     return await axios.get(`${ apiPath }users/user_info_by_token`, config);
-}
+}*/
 
 /* サインインなどを行うところ */
 export async function login(email, password) {

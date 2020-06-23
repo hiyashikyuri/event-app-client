@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Container } from 'native-base';
-import { FlatList, View, ActivityIndicator } from 'react-native';
+import { FlatList, View, ActivityIndicator, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { addEvents, deleteEvent } from '../redux/actions/events';
 import ListItem from '../components/ListItem';
 import { findAll, remove } from '../shared/event_service';
 import FooterTabs from '../components/Footer';
-import styles from '../styles';
 
 export default function HomeScreen(props) {
     const dispatch = useDispatch();
@@ -80,3 +79,41 @@ export default function HomeScreen(props) {
     }
 };
 
+
+const styles = StyleSheet.create({
+    container: {
+        height: '90%',
+        backgroundColor: '#eee',
+    },
+    activityIndicatorContainer: {
+        backgroundColor: "#fff",
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1,
+    },
+    floatingButton: {
+        backgroundColor: '#6B9EFA',
+        borderColor: '#6B9EFA',
+        height: 55,
+        width: 55,
+        borderRadius: 55 / 2,
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'absolute',
+        bottom: 80,
+        right: 15,
+        shadowColor: "#000000",
+        shadowOpacity: 0.5,
+        shadowRadius: 2,
+        shadowOffset: {
+            height: 1,
+            width: 0
+        }
+    },
+    main: {
+        height: '90%'
+    },
+    footer: {
+        height: '10%'
+    }
+})

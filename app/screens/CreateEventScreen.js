@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
     },
     text: {
-        fontSize: 30,
+        fontSize: 20,
         lineHeight: 33,
         fontFamily: 'Helvetica Neue',
         color: '#333333',

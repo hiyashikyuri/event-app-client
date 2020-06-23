@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, Animated, TouchableOpacity } from 'react-native
 import { RectButton } from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
-let colours = ["#ff8e42", "#4F6384"];
+let colours = ['#9DD6EB', '#97CAE5', '#92BBD9'];
 
 export default function ListItem({ item, index, navigation, onDetail, onDelete, onEdit }) {
     const inputEl = useRef(null);
@@ -47,7 +47,7 @@ export default function ListItem({ item, index, navigation, onDetail, onDelete, 
         if (index % 2 === 0) { //check if its an even number
             return colours[0];
         } else {
-            return colours[1];
+            return colours[2];
         }
     }
 
@@ -62,10 +62,10 @@ export default function ListItem({ item, index, navigation, onDetail, onDelete, 
                     style={ [styles.container, { backgroundColor: random() }] }
                     onPress={ () => { onDetail(item) } }>
                     <Text style={ styles.quote }>
-                        { item.body }
+                        { item.title }
                     </Text>
                     <Text style={ styles.author }>
-                        { item.title }
+                        { item.body }
                     </Text>
                 </TouchableOpacity>
             </View>
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: StyleSheet.hairlineWidth,
         borderBottomColor: "#ccc",
         backgroundColor: '#FFF',
-        padding: 10
+        padding: 10,
     },
     container: {
         padding: 10

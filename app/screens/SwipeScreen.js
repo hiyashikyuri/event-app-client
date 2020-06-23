@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Button as ReactNativeButton } from 'react-native';
 import { Text, Button } from 'native-base';
 import Swiper from 'react-native-swiper';
 
@@ -14,9 +14,7 @@ export default function SwipeScreen(props) {
             </View>
             <View style={ styles.slide3 }>
                 <Text style={ styles.text }>Third Page</Text>
-                <Button style={ styles.button } onPress={ () => props.navigation.navigate('Signup') }>
-                    <Text style={ styles.text }>会員登録する</Text>
-                </Button>
+                <ReactNativeButton title='会員登録する' style={styles.signup} onPress={ () => props.navigation.navigate('Signup') } />
             </View>
         </Swiper>
     );
@@ -33,17 +31,23 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#97CAE5'
+        // backgroundColor: '#97CAE5'
+        backgroundColor: '#9DD6EB'
     },
     slide3: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#92BBD9'
+        backgroundColor: '#9DD6EB'
+        // backgroundColor: '#92BBD9'
     },
     text: {
         color: '#fff',
         fontSize: 30,
         fontWeight: 'bold'
+    },
+    signup: {
+        borderWidth: 1,
+        borderColor: '#fff'
     }
 });

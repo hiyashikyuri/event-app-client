@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     container: {
         height: '90%',
-        backgroundColor: '#F5F5F5'
+        backgroundColor: '#eee',
     },
     activityIndicatorContainer: {
         backgroundColor: "#fff",
