@@ -29,9 +29,9 @@ export default function SettingScreen(props) {
         <Container style={ styles.main }>
             <ScrollView style={ styles.main }>
                 <View style={ { marginTop: 40, alignItems: 'center' } }>
-                    <Thumbnail small source={ { uri: 'http://www.bluecode.jp/images/shiro.jpg' } }/>
+                    <MaterialIcons name='person' style={ styles.icon } size={ 24 } color='black'/>
                 </View>
-                <Text style={ { alignSelf: 'center', margin: 20 } }>基本情報</Text>
+                <Text style={ { alignSelf: 'center', margin: 20 } }>ユーザー情報</Text>
                 <View style={ { marginTop: 0, width: '100%', alignSelf: 'center' } }>
                     <Content>
                         <Card>
