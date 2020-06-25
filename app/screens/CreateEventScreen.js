@@ -27,6 +27,7 @@ export default function CreateEventScreen(props) {
 
     // イベント情報をpropsの中から取得
     let event = navigation.getParam('event', null);
+    console.log(event)
 
     // 必要な変数を定義
     const [isLoading, setIsSaving] = useState(false);
@@ -34,7 +35,7 @@ export default function CreateEventScreen(props) {
     const [title, setTitle] = useState(event ? event.title : '');
     const [body, setBody] = useState(event ? event.body : '');
     const [address, setAddress] = useState(event ? event.address : '');
-    const [image, setImage] = useState(event ? event.image : null); // ''だとエラーが発生するためnull
+    const [image, setImage] = useState(event.image.thumb.url ? event.image.thumb.url : null); // ''だとエラーが発生するためnull
 
     const openImagePickerAsync = async () => {
         let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
@@ -45,7 +46,7 @@ export default function CreateEventScreen(props) {
         }
 
         let pickerResult = await ImagePicker.launchImageLibraryAsync();
-        setImage(pickerResult);
+        setImage(pickerResult.uri);
     }
 
     // 保存するためのメソッド
@@ -60,7 +61,7 @@ export default function CreateEventScreen(props) {
                 })
                 .catch(error => alert(error.message));
         } else {
-            save(title, body, address, image.uri)
+            save(title, body, address, image)
                 .then(res => res.data.response)
                 .then((data) => {
                     dispatch(addEvent(data));
@@ -78,7 +79,7 @@ export default function CreateEventScreen(props) {
                 <ScrollView>
                     <View style={ styles.flex }>
                         {/* 画像を表示できるようにUIを整える */ }
-                        { image && <Image source={ { uri: image.uri } } style={ { width: 200, height: 200 } }/> }
+                        { image && <Image source={ { uri: image } } style={ { width: 200, height: 200 } }/> }
                         <TouchableOpacity onPress={ openImagePickerAsync } style={ styles.button }>
                             <Text style={ styles.buttonText }>画像選択</Text>
                         </TouchableOpacity>

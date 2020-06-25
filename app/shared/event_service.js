@@ -10,26 +10,41 @@ export async function findAll() {
 
 export async function save(title, body, address, image) {
     let formData = new FormData();
-    const uriParts = image.split('.');
-    const fileType = uriParts[uriParts.length - 1];
     formData.append('event[title]', title);
     formData.append('event[body]', body);
     formData.append('event[address]', address);
-    formData.append('event[image]', {
-            uri: image,
-            name: `test.${ fileType }`,
-            type: `image/${ fileType }`,
-        }
-    );
-
+    if (image !== null) {
+        const uriParts = image.split('.');
+        const fileType = uriParts[uriParts.length - 1];
+        formData.append('event[image]', {
+                uri: image,
+                name: `test.${ fileType }`,
+                type: `image/${ fileType }`,
+            }
+        );
+    }
     const config = await getAuthorization();
     return await axios.post(`${ apiPath }events/`, formData, config);
 }
 
 export async function edit(id, title, body, address, image) {
+    let formData = new FormData();
+    formData.append('event[id]', id);
+    formData.append('event[title]', title);
+    formData.append('event[body]', body);
+    formData.append('event[address]', address);
+    if (image !== null) {
+        const uriParts = image.split('.');
+        const fileType = uriParts[uriParts.length - 1];
+        formData.append('event[image]', {
+                uri: image,
+                name: `test.${ fileType }`,
+                type: `image/${ fileType }`,
+            }
+        );
+    }
     const config = await getAuthorization();
-    const event = { id: id, title: title, body: body, address: address };
-    return await axios.put(`${ apiPath }events/${ id }`, { event }, config)
+    return await axios.put(`${ apiPath }events/${ id }`, formData, config)
 }
 
 export async function remove(id) {

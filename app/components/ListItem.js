@@ -1,9 +1,10 @@
 import React, { useRef } from 'react';
-import { View, Text, StyleSheet, Animated, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Animated, TouchableOpacity, Image } from 'react-native';
 
 import { RectButton } from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { MaterialIcons } from "@expo/vector-icons";
+import { apiImagePath, apiPath } from "../shared/config";
 
 let colours = ['#9DD6EB', '#97CAE5', '#92BBD9'];
 
@@ -60,9 +61,16 @@ export default function ListItem({ item, index, navigation, onDetail, onDelete, 
             <View style={ styles.row }>
                 <TouchableOpacity
                     style={ [styles.container, { backgroundColor: random() }] }
-                    onPress={ () => { onDetail(item) } }>
-                    <Text style={ styles.quote }>
-                        { item.title }
+                    onPress={ () => {
+                        onDetail(item)
+                    } }>
+                    <Text>
+                        { item.image.url &&
+                        <Image source={ { uri: apiImagePath + item.image.url } }
+                               style={ styles.image }/> }
+                        <Text style={ styles.title }>
+                            { item.title }
+                        </Text>
                     </Text>
                     <Text style={ styles.user }>
                         <Text>
@@ -72,7 +80,6 @@ export default function ListItem({ item, index, navigation, onDetail, onDelete, 
                             { item.user.name }
                         </Text>
                     </Text>
-
                 </TouchableOpacity>
             </View>
         </Swipeable>
@@ -102,8 +109,11 @@ const styles = StyleSheet.create({
         color: '#FFF',
         textAlign: "right"
     },
-    quote: {
-        marginTop: 5,
+    image: {
+        width: 100,
+        height: 100
+    },
+    title: {
         fontFamily: 'HelveticaNeue-Medium',
         fontSize: 17,
         lineHeight: 21,
