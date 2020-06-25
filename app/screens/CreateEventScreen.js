@@ -1,10 +1,23 @@
 import React, { useState } from 'react';
-import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableHighlight, View } from 'react-native';
+import {
+    KeyboardAvoidingView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableHighlight,
+    View,
+    Image,
+    Button,
+    ScrollView
+} from 'react-native';
 import { Container } from 'native-base';
 import { useDispatch } from 'react-redux';
 import { addEvent, updateEvent } from '../redux/actions/events';
 import { edit, save } from '../shared/event_service';
 import FooterTabs from '../components/Footer';
+import * as ImagePicker from 'expo-image-picker';
+import { TouchableOpacity } from 'react-native';
+
 
 const MAX_LENGTH = 500;
 
@@ -21,9 +34,29 @@ export default function CreateEventScreen(props) {
     const [title, setTitle] = useState(event ? event.title : '');
     const [body, setBody] = useState(event ? event.body : '');
     const [address, setAddress] = useState(event ? event.address : '');
+    const [image, setImage] = useState(event ? event.image : null); // ''だとエラーが発生するためnull
+
+    const openImagePickerAsync = async () => {
+        let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
+
+        if (permissionResult.granted === false) {
+            alert("Permission to access camera roll is required!");
+            return;
+        }
+
+        let pickerResult = await ImagePicker.launchImageLibraryAsync();
+        setImage(pickerResult.uri);
+        console.log(image);
+    }
 
     // 保存するためのメソッド
     const onSave = () => {
+
+        // TODO, FormData形式に変換
+        // TODO, データを送信
+        // TODO, APIにcarrierwaveを追加
+        // TODO, Controllerで処理を行う
+
         // idがあれば修正、なければ新規で追加
         if (id) {
             edit(id, title, body, address)
@@ -47,46 +80,55 @@ export default function CreateEventScreen(props) {
     // View部分
     let disabled = (title.length > 0 && body.length > 0) ? false : true;
     return (
-        <KeyboardAvoidingView style={styles.wrapper}  behavior='padding'>
-            <Container style={ styles.container } >
-                <View style={ styles.flex }>
-                    <TextInput
-                        onChangeText={ (text) => setTitle(text) }
-                        placeholder={ 'イベント名' }
-                        autoFocus={ true }
-                        style={ [styles.author] }
-                        value={ title }/>
-                    <TextInput
-                        multiline={ false }
-                        onChangeText={ (text) => setAddress(text) }
-                        placeholder={ '住所' }
-                        style={ [styles.address] }
-                        value={ address }/>
-                    <TextInput
-                        multiline={ true }
-                        onChangeText={ (text) => setBody(text) }
-                        placeholder={ 'イベントの詳細' }
-                        style={ [styles.text] }
-                        maxLength={ MAX_LENGTH }
-                        value={ body }/>
-                </View>
-                <View style={ styles.buttonContainer }>
-                    <View style={ { flex: 1, justifyContent: 'center' } }>
-                        <Text
-                            style={ [styles.count, (MAX_LENGTH - body.length <= 10) && { color: 'red' }] }> { MAX_LENGTH - body.length }</Text>
+        <KeyboardAvoidingView style={ styles.wrapper } behavior='padding'>
+            <Container style={ styles.container }>
+                <ScrollView>
+                    <View style={ styles.flex }>
+                        {/* 画像を表示できるようにUIを整える */ }
+                        { image && <Image source={ { uri: image } } style={ { width: 200, height: 200 } }/> }
+                        <TouchableOpacity onPress={ openImagePickerAsync } style={ styles.button }>
+                            <Text style={ styles.buttonText }>Pick a photo</Text>
+                        </TouchableOpacity>
+                        <TextInput
+                            onChangeText={ (text) => setTitle(text) }
+                            placeholder={ 'イベント名' }
+                            autoFocus={ true }
+                            style={ [styles.author] }
+                            value={ title }/>
+                        <TextInput
+                            multiline={ false }
+                            onChangeText={ (text) => setAddress(text) }
+                            placeholder={ '住所' }
+                            style={ [styles.address] }
+                            value={ address }/>
+                        <TextInput
+                            multiline={ true }
+                            onChangeText={ (text) => setBody(text) }
+                            placeholder={ 'イベントの詳細' }
+                            style={ [styles.text] }
+                            maxLength={ MAX_LENGTH }
+                            value={ body }/>
                     </View>
-                    <View style={ { flex: 1, alignItems: 'flex-end' } }>
-                        <TouchableHighlight style={ [styles.button] } disabled={ disabled } onPress={ onSave }
-                                            underlayColor='rgba(0, 0, 0, 0)'>
-                            <Text style={ [styles.buttonText, { color: disabled ? 'rgba(255,255,255,.5)' : '#FFF' }] }>
-                                保存
-                            </Text>
-                        </TouchableHighlight>
+                    <View style={ styles.buttonContainer }>
+                        <View style={ { flex: 1, justifyContent: 'center' } }>
+                            <Text
+                                style={ [styles.count, (MAX_LENGTH - body.length <= 10) && { color: 'red' }] }> { MAX_LENGTH - body.length }</Text>
+                        </View>
+                        <View style={ { flex: 1, alignItems: 'flex-end' } }>
+                            <TouchableHighlight style={ [styles.button] } disabled={ disabled } onPress={ onSave }
+                                                underlayColor='rgba(0, 0, 0, 0)'>
+                                <Text
+                                    style={ [styles.buttonText, { color: disabled ? 'rgba(255,255,255,.5)' : '#FFF' }] }>
+                                    保存
+                                </Text>
+                            </TouchableHighlight>
+                        </View>
                     </View>
-                </View>
+                </ScrollView>
                 <View style={ styles.footer }>
                     <FooterTabs navigation={ navigation }/>
                 </View>
+
             </Container>
         </KeyboardAvoidingView>
     );
@@ -126,6 +168,11 @@ const styles = StyleSheet.create({
         fontFamily: 'HelveticaNeue-Medium',
         fontSize: 16,
     },
+    image: {
+        minHeight: '15%',
+        padding: 16,
+        backgroundColor: 'white',
+    },
     author: {
         fontSize: 20,
         lineHeight: 22,
@@ -141,7 +188,7 @@ const styles = StyleSheet.create({
         color: '#333333',
         padding: 16,
         paddingTop: 16,
-        minHeight: '70%',
+        minHeight: '55%',
         borderTopWidth: 1,
         borderColor: 'rgba(212,211,211, 0.3)'
     },

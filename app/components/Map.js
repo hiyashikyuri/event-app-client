@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         // ...StyleSheet.absoluteFillObject, // これがあると全部表示されない
         height: 400,
-        width: 400,
+        width: '100%',
         justifyContent: 'flex-end',
         alignItems: 'center',
     },
@@ -17,6 +17,10 @@ const styles = StyleSheet.create({
     },
 });
 
+// Googleの設定が必要
+// https://docs.expo.io/versions/latest/sdk/map-view/
+// https://medium.com/nycdev/create-a-react-native-app-with-google-map-using-expo-io-68041252023d
+// https://qiita.com/zaburo/items/0bd2e92fb10c50767538
 export default function Map(address) {
 
     return (

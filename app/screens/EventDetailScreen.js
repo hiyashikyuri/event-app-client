@@ -46,9 +46,9 @@ export default function EventDetailScreen(props) {
                     <Text>{ event.address }</Text>
                 </Text>
 
-                <View>
-                    <Map/>
-                </View>
+                {/*<View>*/}
+                {/*    <Map/>*/}
+                {/*</View>*/}
 
             </ScrollView>
             <View style={ styles.footer }>
