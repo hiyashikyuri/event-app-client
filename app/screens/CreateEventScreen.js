@@ -45,21 +45,14 @@ export default function CreateEventScreen(props) {
         }
 
         let pickerResult = await ImagePicker.launchImageLibraryAsync();
-        setImage(pickerResult.uri);
-        console.log(image);
+        setImage(pickerResult);
     }
 
     // 保存するためのメソッド
     const onSave = () => {
-
-        // TODO, FormData形式に変換
-        // TODO, データを送信
-        // TODO, APIにcarrierwaveを追加
-        // TODO, Controllerで処理を行う
-
         // idがあれば修正、なければ新規で追加
         if (id) {
-            edit(id, title, body, address)
+            edit(id, title, body, address, image)
                 .then(res => res.data.response)
                 .then((data) => {
                     dispatch(updateEvent(data));
@@ -67,7 +60,7 @@ export default function CreateEventScreen(props) {
                 })
                 .catch(error => alert(error.message));
         } else {
-            save(title, body, address)
+            save(title, body, address, image.uri)
                 .then(res => res.data.response)
                 .then((data) => {
                     dispatch(addEvent(data));
@@ -85,9 +78,9 @@ export default function CreateEventScreen(props) {
                 <ScrollView>
                     <View style={ styles.flex }>
                         {/* 画像を表示できるようにUIを整える */ }
-                        { image && <Image source={ { uri: image } } style={ { width: 200, height: 200 } }/> }
+                        { image && <Image source={ { uri: image.uri } } style={ { width: 200, height: 200 } }/> }
                         <TouchableOpacity onPress={ openImagePickerAsync } style={ styles.button }>
-                            <Text style={ styles.buttonText }>Pick a photo</Text>
+                            <Text style={ styles.buttonText }>画像選択</Text>
                         </TouchableOpacity>
                         <TextInput
                             onChangeText={ (text) => setTitle(text) }
@@ -109,22 +102,22 @@ export default function CreateEventScreen(props) {
                             maxLength={ MAX_LENGTH }
                             value={ body }/>
                     </View>
-                    <View style={ styles.buttonContainer }>
-                        <View style={ { flex: 1, justifyContent: 'center' } }>
-                            <Text
-                                style={ [styles.count, (MAX_LENGTH - body.length <= 10) && { color: 'red' }] }> { MAX_LENGTH - body.length }</Text>
-                        </View>
-                        <View style={ { flex: 1, alignItems: 'flex-end' } }>
-                            <TouchableHighlight style={ [styles.button] } disabled={ disabled } onPress={ onSave }
-                                                underlayColor='rgba(0, 0, 0, 0)'>
-                                <Text
-                                    style={ [styles.buttonText, { color: disabled ? 'rgba(255,255,255,.5)' : '#FFF' }] }>
-                                    保存
-                                </Text>
-                            </TouchableHighlight>
-                        </View>
-                    </View>
                 </ScrollView>
+                <View style={ styles.buttonContainer }>
+                    <View style={ { flex: 1, justifyContent: 'center' } }>
+                        <Text
+                            style={ [styles.count, (MAX_LENGTH - body.length <= 10) && { color: 'red' }] }> { MAX_LENGTH - body.length }</Text>
+                    </View>
+                    <View style={ { flex: 1, alignItems: 'flex-end' } }>
+                        <TouchableHighlight style={ [styles.button] } disabled={ disabled } onPress={ onSave }
+                                            underlayColor='rgba(0, 0, 0, 0)'>
+                            <Text
+                                style={ [styles.buttonText, { color: disabled ? 'rgba(255,255,255,.5)' : '#FFF' }] }>
+                                保存
+                            </Text>
+                        </TouchableHighlight>
+                    </View>
+                </View>
                 <View style={ styles.footer }>
                     <FooterTabs navigation={ navigation }/>
                 </View>

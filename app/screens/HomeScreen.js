@@ -26,6 +26,7 @@ export default function HomeScreen(props) {
         setIsLoading(true);
         findAll()
             .then((res) => {
+                console.log(res.data.response);
                 dispatch(addEvents(res.data.response));
             })
             .catch(error => alert(error.message))
@@ -70,7 +71,7 @@ export default function HomeScreen(props) {
                 <FlatList
                     data={ events }
                     renderItem={ renderItem }
-                    keyExtractor={ (item) => `item-${ item.id.toString() }` }/>
+                    keyExtractor={ (item) => `item-${ item.id }` }/>
                 <View style={ styles.footer }>
                     <FooterTabs navigation={ navigation }/>
                 </View>
