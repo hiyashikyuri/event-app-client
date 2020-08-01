@@ -28,6 +28,7 @@ export default function CreateEventScreen(props) {
 
     // イベント情報をpropsの中から取得
     let event = navigation.getParam('event', null);
+    console.log(event)
 
     // 必要な変数を定義
     const [isLoading, setIsloading] = useState(false);
@@ -93,6 +94,7 @@ export default function CreateEventScreen(props) {
                         <TextInput
                             onChangeText={ (text) => setTitle(text) }
                             placeholder={ 'イベント名' }
+                            autoFocus={ true }
                             style={ [styles.author] }
                             value={ title }/>
                         <TextInput
