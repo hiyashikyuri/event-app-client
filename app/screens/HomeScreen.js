@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Container } from 'native-base';
-import { FlatList, View, ActivityIndicator, StyleSheet } from 'react-native';
+import { FlatList, View, ActivityIndicator, StyleSheet, PanResponder } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { addEvents, deleteEvent } from '../redux/actions/events';
 import ListItem from '../components/ListItem';
@@ -26,7 +26,6 @@ export default function HomeScreen(props) {
         setIsLoading(true);
         findAll()
             .then((res) => {
-                console.log(res.data.response);
                 dispatch(addEvents(res.data.response));
             })
             .catch(error => alert(error.message))
@@ -42,7 +41,8 @@ export default function HomeScreen(props) {
                 navigation={ navigation }
                 onDetail={ onDetail }
                 onDelete={ onDelete }
-                onEdit={ onEdit }/>
+                onEdit={ onEdit }
+                panHandlers={ panResponder.panHandlers } />
         )
     };
 
@@ -57,6 +57,17 @@ export default function HomeScreen(props) {
             .catch(error => alert(error.message))
             .finally(() => setIsLoading(false));
     };
+
+    // ListViewをdragged_downしたら発火するevent
+    const panResponder = PanResponder.create({
+        onMoveShouldSetPanResponder: (event, gesture) => {
+            if (gesture.dy > 5) {
+                console.log(gesture.dy);
+                // TODO, getData();だと早すぎるのでloading入れて、settimeoutも入れてわかりやすくする
+                return Math.abs(gesture.dx) > 5 || Math.abs(gesture.dy) > 5;
+            }
+        }
+    });
 
     // View部分
     if (isLoading) {

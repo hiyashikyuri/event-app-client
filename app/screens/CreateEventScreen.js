@@ -30,7 +30,7 @@ export default function CreateEventScreen(props) {
     let event = navigation.getParam('event', null);
 
     // 必要な変数を定義
-    const [isLoading, setIsSaving] = useState(false);
+    const [isLoading, setIsloading] = useState(false);
     const [id] = useState(event ? event.id : '');
     const [title, setTitle] = useState(event ? event.title : '');
     const [body, setBody] = useState(event ? event.body : '');
@@ -57,6 +57,7 @@ export default function CreateEventScreen(props) {
 
     // 保存するためのメソッド
     const onSave = () => {
+        setIsloading(true);
         // idがあれば修正、なければ新規で追加
         if (id) {
             edit(id, title, body, address, imageChanged ? image : null)

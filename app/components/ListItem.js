@@ -8,7 +8,7 @@ import { apiImagePath, apiPath } from "../shared/config";
 
 let colours = ['#9DD6EB', '#97CAE5', '#92BBD9'];
 
-export default function ListItem({ item, index, navigation, onDetail, onDelete, onEdit }) {
+export default function ListItem({ item, index, navigation, onDetail, onDelete, onEdit, panHandlers }) {
     const inputEl = useRef(null);
 
     const RightActions = ({ progress, dragX, onPress, item }) => {
@@ -58,7 +58,7 @@ export default function ListItem({ item, index, navigation, onDetail, onDelete, 
             renderRightActions={ (progress, dragX) => (
                 <RightActions progress={ progress } dragX={ dragX } item={ item }/>
             ) }>
-            <View style={ styles.row }>
+            <View style={ styles.row } { ...panHandlers }>
                 <TouchableOpacity
                     style={ [styles.container, { backgroundColor: random() }] }
                     onPress={ () => {
