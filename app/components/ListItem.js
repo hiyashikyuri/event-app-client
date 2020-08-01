@@ -65,7 +65,9 @@ export default function ListItem({ item, index, navigation, onDetail, onDelete, 
                         onDetail(item)
                     } }>
                     <View style={ styles.titleContainer }>
-                        { item.image?.url && <Image source={ { uri: apiImagePath + item.image.url } } style={ styles.image }/> }
+                        {/*https://github.com/facebook/react-native/issues/12606*/}
+                        {/* 画像を毎回リロードさせるためにnew Dateを入れている */}
+                        { item.image?.url && <Image source={ { uri: apiImagePath + item.image.url + '?' + new Date()} } style={ styles.image }/> }
                         <Text style={ styles.title }>
                             { item.title }
                         </Text>

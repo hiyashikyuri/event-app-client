@@ -35,7 +35,8 @@ export default function CreateEventScreen(props) {
     const [title, setTitle] = useState(event ? event.title : '');
     const [body, setBody] = useState(event ? event.body : '');
     const [address, setAddress] = useState(event ? event.address : '');
-    const [image, setImage] = useState(event?.image ? `${apiImagePath}/${event.image.thumb.url}` : null); // ''だとエラーが発生するためnull
+    const [image, setImage] = useState(event?.image.thumb.url ? `${apiImagePath}/${event.image.thumb.url  + '?' + new Date()}` : null); // ''だとエラーが発生するためnull
+    const [imageChanged, setImageChanged] = useState(false);
 
     const openImagePickerAsync = async () => {
         const permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
@@ -50,6 +51,7 @@ export default function CreateEventScreen(props) {
         if (pickerResult.cancelled === true) {
             return;
         }
+        setImageChanged(true);
         setImage(pickerResult.uri);
     }
 
@@ -57,7 +59,7 @@ export default function CreateEventScreen(props) {
     const onSave = () => {
         // idがあれば修正、なければ新規で追加
         if (id) {
-            edit(id, title, body, address, image)
+            edit(id, title, body, address, imageChanged ? image : null)
                 .then(res => res.data.response)
                 .then((data) => {
                     dispatch(updateEvent(data));
@@ -65,7 +67,7 @@ export default function CreateEventScreen(props) {
                 })
                 .catch(error => alert(error.message));
         } else {
-            save(title, body, address, image)
+            save(title, body, address, imageChanged ? image : null)
                 .then(res => res.data.response)
                 .then((data) => {
                     dispatch(addEvent(data));
@@ -83,7 +85,7 @@ export default function CreateEventScreen(props) {
                 <ScrollView>
                     <View style={ styles.flex }>
                         {/* 画像を表示できるようにUIを整える */ }
-                        { image && <Image source={ { uri: image } } style={ styles.image }/> }
+                        { image && <Image source={ { uri: image, cache: 'reload' } } style={ styles.image }/> }
                         <TouchableOpacity onPress={ openImagePickerAsync } style={ styles.button }>
                             <Text style={ styles.buttonText }>画像選択</Text>
                         </TouchableOpacity>
@@ -109,16 +111,11 @@ export default function CreateEventScreen(props) {
                 </ScrollView>
                 <View style={ styles.buttonContainer }>
                     <View style={ { flex: 1, justifyContent: 'center' } }>
-                        <Text
-                            style={ [styles.count, (MAX_LENGTH - body.length <= 10) && { color: 'red' }] }> { MAX_LENGTH - body.length }</Text>
+                        <Text style={ [styles.count, (MAX_LENGTH - body.length <= 10) && { color: 'red' }] }> { MAX_LENGTH - body.length }</Text>
                     </View>
                     <View style={ { flex: 1, alignItems: 'flex-end' } }>
-                        <TouchableHighlight style={ [styles.button] } disabled={ disabled } onPress={ onSave }
-                                            underlayColor='rgba(0, 0, 0, 0)'>
-                            <Text
-                                style={ [styles.buttonText, { color: disabled ? 'rgba(255,255,255,.5)' : '#FFF' }] }>
-                                保存
-                            </Text>
+                        <TouchableHighlight style={ [styles.submitButton] } disabled={ disabled } onPress={ onSave } underlayColor='rgba(0, 0, 0, 0)'>
+                            <Text style={ [styles.buttonText, { color: disabled ? 'rgba(255,255,255,.5)' : '#FFF' }] }>保存</Text>
                         </TouchableHighlight>
                     </View>
                 </View>
@@ -166,8 +163,17 @@ const styles = StyleSheet.create({
         backgroundColor: '#6B9EFA'
     },
     buttonText: {
+        color: '#fff',
         fontFamily: 'HelveticaNeue-Medium',
         fontSize: 16,
+    },
+    submitButton: {
+        width: 100,
+        height: 44,
+        borderRadius: 8,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#6B9EFA'
     },
     image: {
         height: 200,

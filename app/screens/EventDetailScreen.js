@@ -20,7 +20,7 @@ export default function EventDetailScreen(props) {
         <Container style={ styles.wrapper }>
             <ScrollView style={ styles.main }>
                 <View style={ [styles.contentHeader] }>
-                    { event.image?.url && <Image source={ { uri: apiImagePath + event.image.url } } style={ styles.image }/> }
+                    { event.image?.url && <Image source={ { uri: apiImagePath + event.image.url + '?' + new Date() } } style={ styles.image }/> }
                     <View style={ [styles.content, { flexDirection: 'row', flexWrap: 'wrap' }] }>
                         <MaterialIcons style={{ marginRight: 20 }} name="event-note" size={ 40 } color="white"/>
                         <Text style={ styles.title }>{ event.title }</Text>
