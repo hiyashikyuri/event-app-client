@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Button as ReactNativeButton, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import FooterTabs from '../components/Footer';
-import { Button, Card, CardItem, Container, Content, Thumbnail,Left, Right } from 'native-base';
+import { Container } from 'native-base';
 import { MaterialIcons, FontAwesome } from "@expo/vector-icons";
-import Map from "../components/Map";
+import { apiImagePath } from "../shared/config";
 
 
 export default function EventDetailScreen(props) {
@@ -20,6 +20,7 @@ export default function EventDetailScreen(props) {
         <Container style={ styles.wrapper }>
             <ScrollView style={ styles.main }>
                 <View style={ [styles.contentHeader] }>
+                    { event.image?.url && <Image source={ { uri: apiImagePath + event.image.url } } style={ styles.image }/> }
                     <View style={ [styles.content, { flexDirection: 'row', flexWrap: 'wrap' }] }>
                         <MaterialIcons style={{ marginRight: 20 }} name="event-note" size={ 40 } color="white"/>
                         <Text style={ styles.title }>{ event.title }</Text>
@@ -46,10 +47,6 @@ export default function EventDetailScreen(props) {
                     <Text>{ event.address }</Text>
                 </Text>
 
-                {/*<View>*/}
-                {/*    <Map/>*/}
-                {/*</View>*/}
-
             </ScrollView>
             <View style={ styles.footer }>
                 <FooterTabs navigation={ navigation }/>
@@ -73,6 +70,10 @@ const styles = StyleSheet.create({
     button: {
         margin: 30
     },
+    image: {
+        width: '100%',
+        height: 200,
+    },
     contentHeader: {
         backgroundColor: '#92BBD9',
         height: 200,
@@ -88,14 +89,10 @@ const styles = StyleSheet.create({
         lineHeight: 33,
         fontFamily: 'Helvetica Neue',
         color: '#fff',
-        // minHeight: 170,
         borderTopWidth: 1,
         borderColor: 'rgba(212,211,211, 0.3)',
-        // marginLeft: 'auto',
-        // marginRight: 'auto',
         marginTop: 'auto',
         marginBottom: 'auto',
-
     },
     body: {
         padding: 20,

@@ -35,7 +35,7 @@ export default function CreateEventScreen(props) {
     const [title, setTitle] = useState(event ? event.title : '');
     const [body, setBody] = useState(event ? event.body : '');
     const [address, setAddress] = useState(event ? event.address : '');
-    const [image, setImage] = useState(event.image.thumb.url ? event.image.thumb.url : null); // ''だとエラーが発生するためnull
+    const [image, setImage] = useState(event?.image.thumb.url ? event.image.thumb.url : null); // ''だとエラーが発生するためnull
 
     const openImagePickerAsync = async () => {
         let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
@@ -79,7 +79,7 @@ export default function CreateEventScreen(props) {
                 <ScrollView>
                     <View style={ styles.flex }>
                         {/* 画像を表示できるようにUIを整える */ }
-                        { image && <Image source={ { uri: image } } style={ { width: 200, height: 200 } }/> }
+                        { image && <Image source={ { uri: image } } style={ styles.image }/> }
                         <TouchableOpacity onPress={ openImagePickerAsync } style={ styles.button }>
                             <Text style={ styles.buttonText }>画像選択</Text>
                         </TouchableOpacity>
@@ -151,8 +151,12 @@ const styles = StyleSheet.create({
         color: '#6B9EFA'
     },
     button: {
-        width: 80,
+        width: 100,
         height: 44,
+        marginTop: 20,
+        marginBottom: 20,
+        marginLeft: 'auto',
+        marginRight: 'auto',
         borderRadius: 8,
         justifyContent: 'center',
         alignItems: 'center',
@@ -163,9 +167,11 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     image: {
-        minHeight: '15%',
-        padding: 16,
-        backgroundColor: 'white',
+        height: 200,
+        width: 200,
+        marginTop: 50,
+        marginLeft: 'auto',
+        marginRight: 'auto'
     },
     author: {
         fontSize: 20,

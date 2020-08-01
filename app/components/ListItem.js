@@ -64,14 +64,12 @@ export default function ListItem({ item, index, navigation, onDetail, onDelete, 
                     onPress={ () => {
                         onDetail(item)
                     } }>
-                    <Text>
-                        { item.image.url &&
-                        <Image source={ { uri: apiImagePath + item.image.url } }
-                               style={ styles.image }/> }
+                    <View style={ styles.titleContainer }>
+                        { item.image?.url && <Image source={ { uri: apiImagePath + item.image.url } } style={ styles.image }/> }
                         <Text style={ styles.title }>
                             { item.title }
                         </Text>
-                    </Text>
+                    </View>
                     <Text style={ styles.user }>
                         <Text>
                             <MaterialIcons name='person' style={ styles.icon } size={ 12 } color='white'/>
@@ -94,30 +92,34 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     container: {
+        height: 100,
         padding: 10
+    },
+    titleContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        alignItems: 'flex-start',
+    },
+    image: {
+        width: 80,
+        height: 80,
+        marginRight: 10,
+    },
+    title: {
+        fontFamily: 'HelveticaNeue-Medium',
+        fontSize: 17,
+        color: '#FFF',
     },
     icon: {
         textAlign: 'right'
     },
     user: {
-        flex: 1,
-        flexDirection: 'row',
-        marginTop: 25,
         marginBottom: 10,
         fontFamily: 'HelveticaNeue-Medium',
         fontSize: 15,
         color: '#FFF',
         textAlign: "right"
-    },
-    image: {
-        width: 100,
-        height: 100
-    },
-    title: {
-        fontFamily: 'HelveticaNeue-Medium',
-        fontSize: 17,
-        lineHeight: 21,
-        color: '#FFF',
     },
     buttons: {
         width: 190,
