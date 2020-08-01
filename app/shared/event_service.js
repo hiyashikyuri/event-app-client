@@ -38,6 +38,7 @@ export async function edit(id, title, body, address, image) {
         const fileType = uriParts[uriParts.length - 1];
         formData.append('event[image]', {
                 uri: image,
+                // TODO, original_nameで送りたい
                 name: `test.${ fileType }`,
                 type: `image/${ fileType }`,
             }

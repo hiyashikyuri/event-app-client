@@ -17,6 +17,7 @@ import { edit, save } from '../shared/event_service';
 import FooterTabs from '../components/Footer';
 import * as ImagePicker from 'expo-image-picker';
 import { TouchableOpacity } from 'react-native';
+import { apiImagePath } from "../shared/config";
 
 
 const MAX_LENGTH = 500;
@@ -27,7 +28,6 @@ export default function CreateEventScreen(props) {
 
     // イベント情報をpropsの中から取得
     let event = navigation.getParam('event', null);
-    console.log(event)
 
     // 必要な変数を定義
     const [isLoading, setIsSaving] = useState(false);
@@ -35,7 +35,7 @@ export default function CreateEventScreen(props) {
     const [title, setTitle] = useState(event ? event.title : '');
     const [body, setBody] = useState(event ? event.body : '');
     const [address, setAddress] = useState(event ? event.address : '');
-    const [image, setImage] = useState(event?.image.thumb.url ? event.image.thumb.url : null); // ''だとエラーが発生するためnull
+    const [image, setImage] = useState(event?.image ? `${apiImagePath}/${event.image.thumb.url}` : null); // ''だとエラーが発生するためnull
 
     const openImagePickerAsync = async () => {
         let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
@@ -86,7 +86,6 @@ export default function CreateEventScreen(props) {
                         <TextInput
                             onChangeText={ (text) => setTitle(text) }
                             placeholder={ 'イベント名' }
-                            autoFocus={ true }
                             style={ [styles.author] }
                             value={ title }/>
                         <TextInput
